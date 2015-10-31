@@ -1,0 +1,14 @@
+Package: estatapi
+Type: Package
+Title: R package for e-Stat API
+Version: 0.1
+Date: 2015-11-01
+Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c("aut", "cre"))
+Description: e-Stat is a service privided by Japanese Government.
+License: MIT + file LICENSE
+LazyData: TRUE
+Imports:
+  httr,
+  dplyr,
+  purrr
+RoxygenNote: 5.0.0
