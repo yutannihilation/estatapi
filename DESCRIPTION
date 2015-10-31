@@ -7,8 +7,9 @@ Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c(
 Description: e-Stat is a service privided by Japanese Government.
 License: MIT + file LICENSE
 LazyData: TRUE
-Imports:
+Imports: 
   httr,
   dplyr,
   purrr
 RoxygenNote: 5.0.0
+Suggests: testthat
