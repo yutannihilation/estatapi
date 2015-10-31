@@ -86,7 +86,11 @@ Get statistics.
 Though only `appId` and `statsDataId` are required, I recommend you to use additional condition to save time.
 
 ```r
-estat_getStatsData(appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"))
+estat_getStatsData(
+  appId = appId,
+  statsDataId = "0003103532",
+  cdCat01 = c("010800130","010800140")
+)
 #> Source: local data frame [12,176 x 13]
 #> 
 #>     @tab    @cat01 @cat02 @area      @time @unit     $ value tab_info       cat01_info                 cat02_info area_info  time_info
@@ -107,10 +111,17 @@ estat_getStatsData(appId = appId, statsDataId = "0003103532", cdCat01 = c("01080
 You may feel convenient with `limit` and `startPosition` to get data partially.
 
 ```r
-d1 <- estat_getStatsData(appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"), limit = 100)
+d1 <- estat_getStatsData(
+        appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
+        limit = 100
+      )
 #> There are more records; please rerun with startPosition=101
 
-d2 <- estat_getStatsData(appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"), limit = 100, startPosition=101)
+d2 <- estat_getStatsData(
+        appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
+        limit = 100,
+        startPosition=101
+      )
 #> There are more records; please rerun with startPosition=201
 
 d <- bind_rows(d1, d2)
