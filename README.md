@@ -7,7 +7,7 @@ e-Stat is a service to get Statistics of Japan, which is provided by Japanese Go
 
 ## Requirement
 
-First, You need to register to obtain `appId`.
+First, You need to register at e-Stat website to obtain `appId`.
 
 ## Installation
 
