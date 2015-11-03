@@ -1,6 +1,6 @@
 #' R package for e-Stat API
 #'
 #' @docType package
-#' @import httr dplyr
+#' @importFrom dplyr %>%
 #' @name estatapi
 NULL

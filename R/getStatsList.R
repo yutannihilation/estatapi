@@ -6,5 +6,5 @@ estat_getStatsList <- function(appId, searchWord, ...) {
 
   j$GET_STATS_LIST$DATALIST_INF$TABLE_INF %>%
     purrr::map(as_flattened_character) %>%
-    bind_rows
+    dplyr::bind_rows
 }

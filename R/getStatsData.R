@@ -13,11 +13,11 @@ estat_getStatsData <- function(appId, statsDataId, ...)
   class_info <- get_class_info(j$GET_STATS_DATA$STATISTICAL_DATA$CLASS_INF$CLASS_OBJ)
 
   value_df <- j$GET_STATS_DATA$STATISTICAL_DATA$DATA_INF$VALUE %>%
-    bind_rows
+    dplyr::bind_rows
 
   suppressWarnings(
     value_df <- value_df %>%
-      mutate(value = as.numeric(`$`))
+      dplyr::mutate(value = as.numeric(`$`))
   )
 
   for (info_name in names(class_info)) {
