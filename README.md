@@ -22,7 +22,7 @@ devtools::install_github("yutannihilation/estatapi")
 
 ## 使い方
 
-現在、このパッケージではバージョン2.0のうち3つをサポートしています。各APIの詳しい解説やパラメータの指定の仕方、また返ってくる結果の意味は、公式ドキュメントを参照してください。
+現在、このパッケージではバージョン2.0のうち3つをサポートしています。各APIの詳しい解説やパラメータの指定の仕方、返ってくる結果の意味は、公式ドキュメントを参照してください。
 
 * [統計表情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_1): 提供されている統計表を検索します。
 * [メタ情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2): 統計データのメタ情報を取得します。
@@ -32,7 +32,7 @@ devtools::install_github("yutannihilation/estatapi")
 
 提供されている統計表を検索します。この関数は、結果を`tbl_df`（dplyrの`data.frame`。`data.frame`とほぼ同じように扱える）として返します。
 
-例えば、「チョコレート」というキーワードを含む統計を検索するときは`searchWord`という引数にlキーワードを指定して、以下のようにします。
+例えば、「チョコレート」というキーワードを含む統計を検索するときは`searchWord`という引数にキーワードを指定して、以下のようにします。
 
 ```r
 appId <- "XXXXXXXXX"
