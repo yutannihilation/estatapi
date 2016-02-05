@@ -1,12 +1,12 @@
-estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うRパッケージ
+estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うためのRパッケージ
 ==========================
 [![Travis-CI Build Status](https://travis-ci.org/yutannihilation/estatapi.svg?branch=master)](https://travis-ci.org/yutannihilation/estatapi)
 
 _English version of README is [here](README.en.md)_
 
-## e-Stat API
+## e-Stat APIとは
 
-e-Statは日本政府が提供する統計情報の総合窓口です。e-StatにはAPIが用意されていて、[ウェブサイト](http://www.e-stat.go.jp/api/)上でアカウントを登録すると使えるようになります。
+e-Statは日本の統計情報が集まっているポータルサイトです。e-StatにはAPIが用意されていて、[ウェブサイト](http://www.e-stat.go.jp/api/)上でアカウントを登録すると使えるようになります。
 
 ## 事前準備
 
