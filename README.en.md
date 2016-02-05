@@ -1,38 +1,30 @@
-estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うRパッケージ
+e-Stat API for R
 ==========================
 [![Travis-CI Build Status](https://travis-ci.org/yutannihilation/estatapi.svg?branch=master)](https://travis-ci.org/yutannihilation/estatapi)
 
-_English version of README is [here](README.en.md)_
-
 ## e-Stat API
 
-e-Statは日本政府が提供する統計情報の総合窓口です。e-StatにはAPIが用意されていて、[ウェブサイト](http://www.e-stat.go.jp/api/)上でアカウントを登録すると使えるようになります。
+e-Stat is a service to get Statistics of Japan, which is provided by Japanese Government. See http://www.e-stat.go.jp/api/.
 
-## 事前準備
+## Requirement
 
-[利用ガイド](http://www.e-stat.go.jp/api/api-guide/)に従ってアプリケーションIDを取得してください。APIにアクセスする際は、`appId`というパラメータに取得したアプリケーションIDを指定します。
+First, You need to register at e-Stat website to obtain `appId`.
 
-## インストール
-
-CRAN上にはないので、`devtools::install_github()`を使ってください。
+## Installation
 
 ```r
 devtools::install_github("yutannihilation/estatapi")
 ```
 
-## 使い方
+## Usage
 
-現在、このパッケージではバージョン2.0のうち3つをサポートしています。各APIの詳しい解説やパラメータの指定の仕方、また返ってくる結果の意味は、公式ドキュメントを参照してください。
+Currently, this package supports three methods of API v2. For the details about the query params, please read the official documentation at http://www.e-stat.go.jp/api/e-stat-manual/
 
-* [統計表情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_1): 提供されている統計表を検索します。
-* [メタ情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2): 統計データのメタ情報を取得します。
-* [統計データ取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3): 統計データを取得します。 
+### estat_getStatsList
 
-### 統計表情報取得（`estat_getStatsList()`）
+Get list of statistics matched with the provided query.
 
-提供されている統計表を検索します。この関数は、結果を`tbl_df`（dplyrの`data.frame`。`data.frame`とほぼ同じように扱える）として返します。
-
-例えば、「チョコレート」というキーワードを含む統計を検索するときは`searchWord`という引数にlキーワードを指定して、以下のようにします。
+This function returns result as a `tbl_df`.
 
 ```r
 appId <- "XXXXXXXXX"
@@ -57,11 +49,11 @@ estat_getStatsList(appId = appId, searchWord = "チョコレート")
 #>   MAIN_CATEGORY.$ (chr), SUB_CATEGORY.@code (chr), SUB_CATEGORY.$ (chr), OVERALL_TOTAL_NUMBER (chr), UPDATED_DATE (chr), TITLE (chr)
 ```
 
-### メタ情報取得（`getMetaInfo()`）
+### getMetaInfo
 
-統計データのメタ情報を取得します。この関数は、結果を`list`として返します。`list`の各要素が、それぞれのデータ項目についてのメタ情報を含んだ`tbl_df`になっています。
+Get meta-information about the data.
 
-例えば、`0003103532`というIDの統計に関するメタ情報を取得するには、`statsDataId`という引数にIDを指定して、以下のようにします。
+This function returns a list of `tbl_df`. Each `tbl_df` contains the meta-info for the correspondent column.
 
 ```r
 meta_info <- estat_getMetaInfo(appId = appId, statsDataId = "0003103532")
@@ -88,12 +80,11 @@ meta_info$cat01
 ```
 
 
-### 統計データ取得（`getStatsData()`）
+### getStatsData
 
-統計データを取得します。この関数は、結果をメタ情報と紐づけて`tbl_df`として返します。
+Get statistics.
 
-ちなみに、必ず指定しなくてはいけないのは`appId`と`statsDataId`だけですが、それだけだとデータがかなり大きくなって取得に時間がかかります。`cdCat01`（分類事項01）などを指定して必要な項目だけに絞ることをおすすめします。他に絞り込みに指定できるパラメータについては公式ドキュメントを参照してください。
-
+Though only `appId` and `statsDataId` are required, I recommend you to use additional condition to save time.
 
 ```r
 estat_getStatsData(
@@ -118,7 +109,7 @@ estat_getStatsData(
 #> ..   ...       ...    ...   ...        ...   ...   ...   ...      ...              ...                        ...       ...        ...
 ```
 
-`limit`で取得する最大のレコード数を、`startPosition`で取得を始めるレコードの位置を指定することもできます。とりあえず少しだけ抜き出して見たい場合や、少しずつデータを取ってきたい場合には便利です。
+You may feel convenient with `limit` and `startPosition` to get data partially.
 
 ```r
 d1 <- estat_getStatsData(
