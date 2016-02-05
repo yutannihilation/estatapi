@@ -2,6 +2,14 @@
 
 ESTAT_API_URL <- "http://api.e-stat.go.jp/"
 
+#' @title e-Stat API
+#'
+#' @description Get Statistical Something From e-Stat API
+#'
+#' @param path API endpoint
+#' @param appId application ID
+#' @param ... other parameters
+#'
 #' @export
 estat_api <- function(path, appId, ...)
 {
@@ -48,9 +56,9 @@ get_class_info <- function(class_obj)
 merge_class_info <- function(value_df, class_info, name)
 {
   info <- class_info[[name]] %>%
-    dplyr::select(`@code`, `@name`)
+    dplyr::select_("`@code`", "`@name`")
 
   key <- sprintf("@%s", name)
   colnames(info) <- c(key, sprintf("%s_info", name))
-  dplyr::left_join(value_df, info,  by = key)
+  dplyr::left_join(value_df, info, by = key)
 }

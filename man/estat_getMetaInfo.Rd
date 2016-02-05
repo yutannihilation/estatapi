@@ -2,11 +2,36 @@
 % Please edit documentation in R/getMetaInfo.R
 \name{estat_getMetaInfo}
 \alias{estat_getMetaInfo}
-\title{getMetaInfo}
+\title{getMetaInfo API}
 \usage{
 estat_getMetaInfo(appId, statsDataId, ...)
 }
+\arguments{
+\item{appId}{Application ID}
+
+\item{statsDataId}{ID of the statistical dataset}
+
+\item{...}{Other parameters.}
+}
 \description{
-getMetaInfo
+Get Meta-information about the statistical dataset vi e-Stat API.
+}
+\section{Other parameters}{
+
+For every detailed information, please visit the URL in See Also.
+\itemize{
+ \item \code{callback}:
+    (This parameter is not supported) callback function for JSONP.
+}
+}
+\examples{
+\dontrun{
+estat_getMetaInfo(appId = "XXXX", statsDataId = "0003065345")
+}
+
+}
+\seealso{
+\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2}
+\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_3}
 }
 

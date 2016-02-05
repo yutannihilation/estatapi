@@ -2,11 +2,78 @@
 % Please edit documentation in R/getStatsData.R
 \name{estat_getStatsData}
 \alias{estat_getStatsData}
-\title{getStatsData}
+\title{getStatsData API}
 \usage{
 estat_getStatsData(appId, statsDataId, ...)
 }
+\arguments{
+\item{appId}{application ID}
+
+\item{statsDataId}{ID of the statistical dataset}
+
+\item{...}{Other parameters.}
+}
 \description{
-getStatsData
+Get some statistic data from e-stat API.
+}
+\section{Other parameters}{
+
+For every detailed information, please visit the URL in See Also.
+\itemize{
+ \item \code{dataSetId}:
+   (This parameter is not supported) ID of the dataset you registered.
+ \item \code{lvTab}:
+   Level of the meta-information. The format can be \code{X} or \code{X-Y}, \code{-X} and \code{X-}.
+ \item \code{cdTab}:
+   Code(s) of the meta-infomation items to select. The format can be a character vector (\code{c("001", "002")}) or
+   a chraracter of values and commas (\code{"001,002"}).
+ \item \code{cdTabFrom}:
+   The code of the first meta-information item to select.
+ \item \code{cdTabTo}:
+   The code of the last meta-information item to select.
+ \item \code{lvTime}:
+    Level of the time to select. The format is the same as \code{lvTab}
+ \item \code{cdTime}
+    Time(s) to select. The format is the same way like \code{cdTab}
+ \item \code{cdTimeFrom}:
+   The first time to select. The format is the same way like \code{cdTabFrom}
+ \item \code{cdTimeTo}:
+   The last time to select. The format is the same way like \code{cdTabTo}
+ \item \code{lvArea}:
+    Level of the area to select. The format is the same as \code{lvTab}
+ \item \code{cdArea}
+    Code(s) of the Area to select. The format is the same way like \code{cdTab}
+ \item \code{cdAreaFrom}:
+   The code of the first area to select. The format is the same way like \code{cdTabFrom}
+ \item \code{cdAreaTo}:
+   The code of the last area to select. The format is the same way like \code{cdTabTo}
+ \item \code{lvCat01}, \code{cdCat01}, \code{cdCat01From}, \code{cdCat01To}, ...:
+   The same way like above.
+ \item \code{startPosition}:
+   integer. The the first record to get.
+ \item \code{limit}:
+   integer. Max number of records to get.
+ \item \code{metaGetFlg}:
+    (This parameter is not supported) Whether to get metadata at the same time. \code{Y}(default) or \code{N}.
+ \item \code{cntGetFlg}:
+    (This parameter is not supported) Whether to get the number of records only. \code{Y} or \code{N}(default).
+ \item \code{callback}:
+    (This parameter is not supported) callback function for JSONP.
+}
+}
+\examples{
+\dontrun{
+estat_getStatsData(
+  appId = "XXXX",
+  statsDataId = "0003065345",
+  cdCat01 = c("008", "009", "010"),
+  limit = 3
+)
+}
+
+}
+\seealso{
+\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3}
+\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_4}
 }
 
