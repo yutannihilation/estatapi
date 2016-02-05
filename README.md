@@ -1,6 +1,6 @@
 e-Stat API for R
 ==========================
-[![Travis-CI Build Status](https://travis-ci.org/NA/NA.svg?branch=master)](https://travis-ci.org/NA/NA)
+[![Travis-CI Build Status](https://travis-ci.org/yutannihilation/estatapi.svg?branch=master)](https://travis-ci.org/yutannihilation/estatapi)
 
 ## e-Stat API
 
