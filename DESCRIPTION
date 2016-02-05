@@ -2,14 +2,16 @@ Package: estatapi
 Type: Package
 Title: R package for e-Stat API
 Version: 0.1
-Date: 2015-11-01
+Date: 2016-02-05
 Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c("aut", "cre"))
-Description: Interface to e-Stat API, which is a service to get statistics and its metadata, provided by Japanese Government.
+Description: Interface to e-Stat API, which is a service to get statistics and
+    its metadata, provided by Japanese Government.
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
-  httr,
-  dplyr,
-  purrr
-RoxygenNote: 5.0.0
-Suggests: testthat
+    httr,
+    dplyr,
+    purrr(>= 0.2)
+RoxygenNote: 5.0.1
+Suggests:
+    testthat
