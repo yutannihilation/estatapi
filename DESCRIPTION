@@ -11,7 +11,8 @@ LazyData: TRUE
 Imports:
     httr,
     dplyr,
-    purrr(>= 0.2)
+    purrr(>= 0.2),
+    readr
 RoxygenNote: 5.0.1
 Suggests:
     testthat

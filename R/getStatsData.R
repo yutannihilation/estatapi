@@ -79,7 +79,7 @@ estat_getStatsData <- function(appId, statsDataId, ...)
 
   suppressWarnings(
     value_df <- value_df %>%
-      dplyr::mutate(value = as.numeric(`$`))
+      dplyr::mutate(value = readr::parse_number(`$`))
   )
 
   for (info_name in names(class_info)) {
