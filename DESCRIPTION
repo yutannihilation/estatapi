@@ -7,6 +7,8 @@ Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c(
 Description: Provides an interface to e-Stat API, the one-stop service for official statistics of the Japanese government.
 License: MIT + file LICENSE
 LazyData: TRUE
+Depends:
+    R (>= 3.1.2)
 Imports:
     httr,
     dplyr,
