@@ -16,14 +16,6 @@ estat_getMetaInfo(appId, statsDataId, ...)
 \description{
 Get Meta-information about the statistical dataset vi e-Stat API.
 }
-\section{Other parameters}{
-
-For every detailed information, please visit the URL in See Also.
-\itemize{
- \item \code{callback}:
-    (This parameter is not supported) callback function for JSONP.
-}
-}
 \examples{
 \dontrun{
 estat_getMetaInfo(appId = "XXXX", statsDataId = "0003065345")

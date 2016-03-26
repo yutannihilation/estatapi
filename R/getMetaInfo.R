@@ -1,19 +1,13 @@
 #' getMetaInfo API
 #'
 #' Get Meta-information about the statistical dataset vi e-Stat API.
+#'
 #' @param appId Application ID
 #' @param statsDataId ID of the statistical dataset
 #' @param ... Other parameters.
 #' @seealso
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2}
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_3}
-#'
-#' @section Other parameters:
-#' For every detailed information, please visit the URL in See Also.
-#' \itemize{
-#'  \item \code{callback}:
-#'     (This parameter is not supported) callback function for JSONP.
-#' }
 #'
 #' @examples
 #' \dontrun{

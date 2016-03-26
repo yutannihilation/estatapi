@@ -26,16 +26,12 @@
 #'     \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.
 #'  \item \code{searchKind}:
 #'     Type of statistics. \code{1}: summary, \code{2}: regional mesh, \code{3}: Sensus.
-#'  \item \code{statsNameList}:
-#'     (This parameter is not supported) If this is set to \code{Y}, only the titles of statistics will be returned.
 #'  \item \code{startPosition}:
 #'    integer. The the first record to get.
 #'  \item \code{limit}:
 #'    integer. Max number of records to get.
 #'  \item \code{updatedDate}:
 #'    Last updated date. The format is either \code{YYYY}, \code{YYYYMM}, \code{YYYYMMDD}, \code{YYYYMMDD-YYYYMMDD}
-#'  \item \code{callback}:
-#'     (This parameter is not supported) callback function for JSONP.
 #' }
 #'
 #' @examples

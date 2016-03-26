@@ -14,14 +14,12 @@ estat_getStatsData(appId, statsDataId, ...)
 \item{...}{Other parameters.}
 }
 \description{
-Get some statistic data from e-stat API.
+Get some statistical data from e-stat API.
 }
 \section{Other parameters}{
 
 For every detailed information, please visit the URL in See Also.
 \itemize{
- \item \code{dataSetId}:
-   (This parameter is not supported) ID of the dataset you registered.
  \item \code{lvTab}:
    Level of the meta-information. The format can be \code{X} or \code{X-Y}, \code{-X} and \code{X-}.
  \item \code{cdTab}:
@@ -53,12 +51,6 @@ For every detailed information, please visit the URL in See Also.
    integer. The the first record to get.
  \item \code{limit}:
    integer. Max number of records to get.
- \item \code{metaGetFlg}:
-    (This parameter is not supported) Whether to get metadata at the same time. \code{Y}(default) or \code{N}.
- \item \code{cntGetFlg}:
-    (This parameter is not supported) Whether to get the number of records only. \code{Y} or \code{N}(default).
- \item \code{callback}:
-    (This parameter is not supported) callback function for JSONP.
 }
 }
 \examples{
