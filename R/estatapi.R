@@ -1,4 +1,4 @@
-#' R interface to e-Stat API
+#' R Interface to e-Stat API
 #'
 #' @docType package
 #' @seealso \url{http://www.e-stat.go.jp/SG1/estat/eStatTopPortalE.do}

@@ -4,9 +4,9 @@
 \name{estatapi}
 \alias{estatapi}
 \alias{estatapi-package}
-\title{R interface to e-Stat API}
+\title{R Interface to e-Stat API}
 \description{
-R interface to e-Stat API
+R Interface to e-Stat API
 }
 \seealso{
 \url{http://www.e-stat.go.jp/SG1/estat/eStatTopPortalE.do}

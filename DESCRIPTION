@@ -1,6 +1,6 @@
 Package: estatapi
 Type: Package
-Title: R interface to e-Stat API
+Title: R Interface to e-Stat API
 Version: 0.2
 Date: 2016-03-27
 Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c("aut", "cre"))
