@@ -15,6 +15,10 @@ First, You need to register at e-Stat website to obtain `appId`.
 ## Installation
 
 ```r
+# Stable version
+install.packages("estatapi")
+
+# Development version
 devtools::install_github("yutannihilation/estatapi")
 ```
 
