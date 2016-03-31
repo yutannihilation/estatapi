@@ -14,7 +14,7 @@ estat_getMetaInfo(appId, statsDataId, ...)
 \item{...}{Other parameters.}
 }
 \description{
-Get Meta-information about the statistical dataset vi e-Stat API.
+Get meta-information about the statistical dataset via e-Stat API.
 }
 \examples{
 \dontrun{

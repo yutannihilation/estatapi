@@ -1,6 +1,6 @@
 #' getMetaInfo API
 #'
-#' Get Meta-information about the statistical dataset vi e-Stat API.
+#' Get meta-information about the statistical dataset via e-Stat API.
 #'
 #' @param appId Application ID
 #' @param statsDataId ID of the statistical dataset

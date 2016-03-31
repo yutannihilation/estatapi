@@ -1,6 +1,6 @@
 #' getStatsData API
 #'
-#' Get some statistical data from e-stat API.
+#' Get some statistical data via e-Stat API.
 #'
 #' @param appId application ID
 #' @param statsDataId ID of the statistical dataset

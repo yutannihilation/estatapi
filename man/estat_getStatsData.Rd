@@ -14,7 +14,7 @@ estat_getStatsData(appId, statsDataId, ...)
 \item{...}{Other parameters.}
 }
 \description{
-Get some statistical data from e-stat API.
+Get some statistical data via e-Stat API.
 }
 \section{Other parameters}{
 
