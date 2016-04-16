@@ -8,6 +8,8 @@ e-Stat API for R
 
 e-Stat is a service to get Statistics of Japan, which is provided by Japanese Government. See http://www.e-stat.go.jp/api/.
 
+**The contents of e-Stat is not garanteed by Japanese Government**
+
 ## Requirement
 
 First, You need to register at e-Stat website to obtain `appId`.
