@@ -49,3 +49,19 @@ test_that("estat_getStatsData processes the API response as expected", {
     )
   )
 })
+
+
+test_that("estat_getDataCatalog processes the API response as expected", {
+  with_mock(
+    `httr::GET` = function(...)
+      purrr::update_list(dummy_res, content = readRDS("content_getDataCatalog.rds")),
+    expect_identical(
+      estat_getDataCatalog(
+        appId = "XXXX",
+        searchWord = "\u30c1\u30e7\u30b3\u30ec\u30fc\u30c8",
+        dataType = c("PDF", "XLS")
+      ),
+      readRDS("result_getDataCatalog.rds")
+    )
+  )
+})
