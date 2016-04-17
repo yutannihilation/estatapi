@@ -18,6 +18,7 @@ estat_api <- function(path, appId, ...)
 
   res <- httr::GET(
     ESTAT_API_URL,
+    config = add_headers(`Accept-Encoding` = "gzip"),
     path = path,
     query = query
   )
