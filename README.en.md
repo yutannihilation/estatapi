@@ -135,3 +135,29 @@ d2 <- estat_getStatsData(
 
 d <- bind_rows(d1, d2)
 ```
+
+### getDataCatalog
+
+Find statistical dataset files (Excel, CSV and PDF) and databases.
+
+Note that this API returns only URL of the file or database and the data itself is not accessible via e-Stat API.
+You can download the file from the given URL, but it may be difficult to process the data by R.
+
+```r
+catalog1 <- estat_getDataCatalog(appId = appId, searchWord = "チョコレート", dataType = c("PDF", "XLS"))
+
+catalog1[1, c("@id", "STAT_NAME", "TABLE_NAME", "SURVEY_DATE", "TABLE_SUB_CATEGORY1", "DATASET_NAME", "NAME", "LANDING_PAGE", "URL", "FORMAT")] %>%
+  glimpse
+#> Observations: 1
+#> Variables: 10
+#> $ @id                 (chr) "000000701890"
+#> $ STAT_NAME           (chr) "全国物価統計調査"
+#> $ TABLE_NAME          (chr) "業態別価格分布－全国，都市階級，都道府県"
+#> $ SURVEY_DATE         (chr) "1997"
+#> $ TABLE_SUB_CATEGORY1 (chr) "0104チョコレート"
+#> $ DATASET_NAME        (chr) "平成9年全国物価統計調査_大規模店舗編_1997年"
+#> $ NAME                (chr) "価格分布_1_業態別価格分布－全国，都市階級，都道府県_0104チョコレート"
+#> $ LANDING_PAGE        (chr) "http://www.e-stat.go.jp/SG1/estat/GL08020103.do?_toGL08020103_&tclassID=000000700001&cycleCode=0&requestSender=search"
+#> $ URL                 (chr) "http://www.e-stat.go.jp/SG1/estat/GL08020103.do?_xlsDownload_&fileId=000000701890&releaseCount=3"
+#> $ FORMAT              (chr) "XLS"
+```

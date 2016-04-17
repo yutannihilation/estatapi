@@ -67,7 +67,7 @@ estat_getStatsList(appId = appId, searchWord = "チョコレート")
 #>   MAIN_CATEGORY.$ (chr), SUB_CATEGORY.@code (chr), SUB_CATEGORY.$ (chr), OVERALL_TOTAL_NUMBER (chr), UPDATED_DATE (chr), TITLE (chr)
 ```
 
-### メタ情報取得（`getMetaInfo()`）
+### メタ情報取得（`estat_getMetaInfo()`）
 
 統計データのメタ情報を取得します。この関数は、結果を`list`として返します。`list`の各要素が、それぞれのデータ項目についてのメタ情報を含んだ`tbl_df`になっています。
 
@@ -98,7 +98,7 @@ meta_info$cat01
 ```
 
 
-### 統計データ取得（`getStatsData()`）
+### 統計データ取得（`estat_getStatsData()`）
 
 統計データを取得します。この関数は、結果をメタ情報と紐づけて`tbl_df`として返します。
 
@@ -145,4 +145,29 @@ d2 <- estat_getStatsData(
 #> There are more records; please rerun with startPosition=201
 
 d <- bind_rows(d1, d2)
+```
+
+### データカタログ情報取得（`estat_getDataCatalog()`）
+
+統計表ファイル（Excel、CSV、PDF）および統計データベースの情報を取得できます。
+
+このAPIはファイルのURLを返すだけなので、そのままRで処理することは難しいかもしれません。
+
+```r
+catalog1 <- estat_getDataCatalog(appId = appId, searchWord = "チョコレート", dataType = c("PDF", "XLS"))
+
+catalog1[1, c("@id", "STAT_NAME", "TABLE_NAME", "SURVEY_DATE", "TABLE_SUB_CATEGORY1", "DATASET_NAME", "NAME", "LANDING_PAGE", "URL", "FORMAT")] %>%
+  glimpse
+#> Observations: 1
+#> Variables: 10
+#> $ @id                 (chr) "000000701890"
+#> $ STAT_NAME           (chr) "全国物価統計調査"
+#> $ TABLE_NAME          (chr) "業態別価格分布－全国，都市階級，都道府県"
+#> $ SURVEY_DATE         (chr) "1997"
+#> $ TABLE_SUB_CATEGORY1 (chr) "0104チョコレート"
+#> $ DATASET_NAME        (chr) "平成9年全国物価統計調査_大規模店舗編_1997年"
+#> $ NAME                (chr) "価格分布_1_業態別価格分布－全国，都市階級，都道府県_0104チョコレート"
+#> $ LANDING_PAGE        (chr) "http://www.e-stat.go.jp/SG1/estat/GL08020103.do?_toGL08020103_&tclassID=000000700001&cycleCode=0&requestSender=search"
+#> $ URL                 (chr) "http://www.e-stat.go.jp/SG1/estat/GL08020103.do?_xlsDownload_&fileId=000000701890&releaseCount=3"
+#> $ FORMAT              (chr) "XLS"
 ```
