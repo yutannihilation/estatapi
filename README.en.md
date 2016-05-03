@@ -26,7 +26,7 @@ devtools::install_github("yutannihilation/estatapi")
 
 ## Usage
 
-Currently, this package supports three methods of API v2. For the details about the query params, please read the official documentation at http://www.e-stat.go.jp/api/e-stat-manual/
+Currently, this package supports four methods of API v2. For the details about the query params, please read the official documentation at http://www.e-stat.go.jp/api/e-stat-manual/
 
 ### estat_getStatsList
 

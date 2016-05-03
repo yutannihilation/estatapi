@@ -4,7 +4,7 @@ estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うためのRパ�
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/yutannihilation/estatapi?branch=master&svg=true)](https://ci.appveyor.com/project/yutannihilation/estatapi)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
 
-_English version of README is [here](README.en.md)_
+_English version of README is [here](https://github.com/yutannihilation/estatapi/README.en.md)_
 
 ## e-Stat APIとは
 
@@ -32,11 +32,12 @@ devtools::install_github("yutannihilation/estatapi")
 
 ## 使い方
 
-現在、このパッケージではバージョン2.0のうち3つをサポートしています。各APIの詳しい解説やパラメータの指定の仕方、返ってくる結果の意味は、公式ドキュメントを参照してください。
+現在、このパッケージではバージョン2.0のうち4つをサポートしています。各APIの詳しい解説やパラメータの指定の仕方、返ってくる結果の意味は、公式ドキュメントを参照してください。
 
 * [統計表情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_1): 提供されている統計表を検索します。
 * [メタ情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2): 統計データのメタ情報を取得します。
 * [統計データ取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3): 統計データを取得します。 
+* [データカタログ情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_6): 統計表ファイル（Excel、CSV、PDF）および統計データベースの情報を取得します。
 
 ### 統計表情報取得（`estat_getStatsList()`）
 

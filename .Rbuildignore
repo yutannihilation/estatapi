@@ -2,6 +2,6 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^\.travis\.yml$
-^README\..*\.md$
+^README\.en\.md$
 ^cran-comments\.md$
 ^appveyor\.yml$
