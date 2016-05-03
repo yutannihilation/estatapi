@@ -4,12 +4,15 @@
 \alias{estat_getStatsList}
 \title{getStatsList API}
 \usage{
-estat_getStatsList(appId, searchWord, ...)
+estat_getStatsList(appId, searchWord, use_label = TRUE, ...)
 }
 \arguments{
 \item{appId}{Application ID}
 
 \item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).}
+
+\item{use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
+(default: \code{TRUE})}
 
 \item{...}{Other parameters.}
 }

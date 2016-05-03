@@ -4,10 +4,13 @@
 \alias{estat_getDataCatalog}
 \title{getDataCatalog API}
 \usage{
-estat_getDataCatalog(appId, ...)
+estat_getDataCatalog(appId, use_label = TRUE, ...)
 }
 \arguments{
 \item{appId}{Application ID}
+
+\item{use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
+(default: \code{TRUE})}
 
 \item{...}{Other parameters.}
 }

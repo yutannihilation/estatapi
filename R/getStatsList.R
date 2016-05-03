@@ -4,6 +4,8 @@
 #'
 #' @param appId Application ID
 #' @param searchWord Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).
+#' @param use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
+#'        (default: \code{TRUE})
 #' @param ... Other parameters.
 #' @seealso
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_1}
@@ -43,10 +45,10 @@
 #' )
 #' }
 #' @export
-estat_getStatsList <- function(appId, searchWord, ...) {
+estat_getStatsList <- function(appId, searchWord, use_label = TRUE, ...) {
   j <- estat_api("rest/2.0/app/json/getStatsList", appId = appId, searchWord = searchWord, ...)
 
   j$GET_STATS_LIST$DATALIST_INF$TABLE_INF %>%
-    purrr::map(as_flattened_character) %>%
+    purrr::map(as_flattened_character, use_label = use_label) %>%
     dplyr::bind_rows()
 }
