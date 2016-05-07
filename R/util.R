@@ -61,14 +61,9 @@ try_dollar <- function(x, use_label = TRUE) {
   }
 }
 
-force_bind_rows <- function(x)
-{
-  if(is.list(x[[1]])) dplyr::bind_rows(x) else dplyr::as_data_frame(x)
-}
-
 get_class_info <- function(class_obj)
 {
-  class_info <- purrr::map(class_obj, ~ force_bind_rows(.$CLASS))
+  class_info <- purrr::map(class_obj, ~ dplyr::bind_rows(.$CLASS))
   names(class_info) <- purrr::map_chr(class_obj, ~ .$`@id`)
   class_info
 }
