@@ -17,7 +17,7 @@ Imports:
     readr (>= 0.2),
     dplyr (> 0.4.3)
 Remotes:
-    hadley/dplyr
+    hadley/dplyr@777e5bb
 RoxygenNote: 5.0.1
 Suggests:
     testthat
