@@ -15,9 +15,7 @@ Imports:
     httr,
     purrr (>= 0.2),
     readr (>= 0.2),
-    dplyr (> 0.4.3)
-Remotes:
-    hadley/dplyr
+    dplyr (>= 0.5.0)
 RoxygenNote: 5.0.1
 Suggests:
     testthat
