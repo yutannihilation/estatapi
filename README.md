@@ -4,7 +4,7 @@ estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うためのRパ�
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/yutannihilation/estatapi?branch=master&svg=true)](https://ci.appveyor.com/project/yutannihilation/estatapi)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
 
-_English version of README is [here](https://github.com/yutannihilation/estatapi/README.en.md)_
+_English version of README is [here](https://github.com/yutannihilation/estatapi/blob/master/README.en.md)_
 
 ## e-Stat APIとは
 
