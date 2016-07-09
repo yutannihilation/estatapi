@@ -5,6 +5,7 @@
 #' @param appId Application ID
 #' @param statsDataId ID of the statistical dataset
 #' @param ... Other parameters.
+#'
 #' @seealso
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2}
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_3}

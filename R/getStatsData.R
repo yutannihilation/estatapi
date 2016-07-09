@@ -4,7 +4,11 @@
 #'
 #' @param appId application ID
 #' @param statsDataId ID of the statistical dataset
-#' @param ... Other parameters.
+#' @param startPosition Integer. The the first record to get.
+#' @param limit Integer. Max number of records to get.
+#' @param ... Other parameters like \code{lvCat01} and \code{cdCat01}.
+#'    See \code{Other parameters} section for more details.
+#'
 #' @seealso
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3}
 #' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_4}
@@ -38,10 +42,6 @@
 #'    The code of the last area to select. The format is the same way like \code{cdTabTo}
 #'  \item \code{lvCat01}, \code{cdCat01}, \code{cdCat01From}, \code{cdCat01To}, ...:
 #'    The same way like above.
-#'  \item \code{startPosition}:
-#'    integer. The the first record to get.
-#'  \item \code{limit}:
-#'    integer. Max number of records to get.
 #' }
 #'
 #' @examples
@@ -55,13 +55,19 @@
 #' }
 #'
 #' @export
-estat_getStatsData <- function(appId, statsDataId, ...)
+estat_getStatsData <- function(appId, statsDataId,
+                               startPosition = NULL,
+                               limit = NULL,
+                               ...)
 {
-  j <- estat_api("rest/2.0/app/json/getStatsData", appId = appId, statsDataId = statsDataId, ...)
+  j <- estat_api("rest/2.0/app/json/getStatsData", appId = appId, statsDataId = statsDataId,
+                 startPosition = startPosition,
+                 limit = limit,
+                 ...)
 
   # TODO: rerun with startPosition automatically
   next_key <- j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$NEXT_KEY
-  if(!is.null(next_key))
+  if(!is.null(next_key) && is.null(limit))
     message(sprintf("There are more records; please rerun with startPosition=%s", next_key))
 
   class_info <- get_class_info(j$GET_STATS_DATA$STATISTICAL_DATA$CLASS_INF$CLASS_OBJ)
