@@ -4,14 +4,20 @@
 \alias{estat_getStatsData}
 \title{getStatsData API}
 \usage{
-estat_getStatsData(appId, statsDataId, ...)
+estat_getStatsData(appId, statsDataId, startPosition = NULL, limit = NULL,
+  ...)
 }
 \arguments{
 \item{appId}{application ID}
 
 \item{statsDataId}{ID of the statistical dataset}
 
-\item{...}{Other parameters.}
+\item{startPosition}{Integer. The the first record to get.}
+
+\item{limit}{Integer. Max number of records to get.}
+
+\item{...}{Other parameters like \code{lvCat01} and \code{cdCat01}.
+See \code{Other parameters} section for more details.}
 }
 \description{
 Get some statistical data via e-Stat API.
@@ -47,10 +53,6 @@ For every detailed information, please visit the URL in See Also.
    The code of the last area to select. The format is the same way like \code{cdTabTo}
  \item \code{lvCat01}, \code{cdCat01}, \code{cdCat01From}, \code{cdCat01To}, ...:
    The same way like above.
- \item \code{startPosition}:
-   integer. The the first record to get.
- \item \code{limit}:
-   integer. Max number of records to get.
 }
 }
 \examples{

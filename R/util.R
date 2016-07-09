@@ -34,7 +34,9 @@ estat_api <- function(path, appId, ...)
 
 flatten_query <- function(x)
 {
-  purrr::map(x, ~ paste0(as.character(.), collapse = ","))
+  x %>%
+    purrr::compact() %>%
+    purrr::map(~ paste0(as.character(.), collapse = ","))
 }
 
 as_flattened_character <- function(x, use_label = TRUE)
