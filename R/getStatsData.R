@@ -67,7 +67,7 @@ estat_getStatsData <- function(appId, statsDataId,
 
   # TODO: rerun with startPosition automatically
   next_key <- j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$NEXT_KEY
-  if(!is.null(next_key))
+  if(!is.null(next_key) && is.null(limit))
     message(sprintf("There are more records; please rerun with startPosition=%s", next_key))
 
   class_info <- get_class_info(j$GET_STATS_DATA$STATISTICAL_DATA$CLASS_INF$CLASS_OBJ)
