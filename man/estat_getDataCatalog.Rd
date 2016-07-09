@@ -52,7 +52,7 @@ Get information about the statistical dataset files and databases via e-Stat API
 estat_getDataCatalog(
   appId = "XXXX",
   searchWord = "CD",
-  dataType = "CSV",
+  dataType = "XLS",
   limit = 3
 )
 }

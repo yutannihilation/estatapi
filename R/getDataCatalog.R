@@ -31,7 +31,7 @@
 #' estat_getDataCatalog(
 #'   appId = "XXXX",
 #'   searchWord = "CD",
-#'   dataType = "CSV",
+#'   dataType = "XLS",
 #'   limit = 3
 #' )
 #' }
