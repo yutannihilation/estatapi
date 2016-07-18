@@ -14,8 +14,7 @@ Depends:
 Imports:
     httr,
     purrr (>= 0.2),
-    readr (>= 0.2),
-    dplyr
+    readr (>= 0.2)
 RoxygenNote: 5.0.1
 Suggests:
     testthat
