@@ -7,12 +7,10 @@ dummy_res <- structure(
     headers = structure(
       list(
         `content-type` = "application/json;charset=utf-8",
-        `content-encoding` = "gzip",
-        `content-length` = "868"
+        `content-encoding` = "gzip"
       ),
       .Names = c("content-type",
-                 "content-encoding",
-                 "content-length"),
+                 "content-encoding"),
       class = c("insensitive", "list")
     ),
     content = raw(0)
@@ -68,8 +66,11 @@ test_that("estat_getMetaInfo processes the API response as expected", {
 
 test_that("estat_getStatsData processes the API response as expected", {
   with_mock(
+    `estatapi:::estat_getStatsDataCount` = function(...) 40014,
     `httr::GET` = function(...)
-      purrr::update_list(dummy_res, content = readRDS("content_getStatsData.rds")),
+      purrr::update_list(dummy_res,
+                         content = readRDS("content_getStatsData.rds"),
+                         headers = list(`content-type` = "text/plain;charset=utf-8")),
     expect_identical(
       estat_getStatsData(
         appId = "XXXX",
