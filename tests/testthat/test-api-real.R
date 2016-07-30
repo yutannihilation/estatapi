@@ -1,7 +1,7 @@
 context("API with real request")
 
 if (!file.exists("../../.appId")) {
-  return()
+  skip("appId is not available")
 }
 
 appId <- readr::read_lines("../../.appId")
