@@ -1,12 +1,28 @@
-context("API")
+context("API with mocks")
 
-dummy_res <- structure(list(
-  content = raw(0),
-  url = '',
-  headers = list(`Content-Type` = "application/json;charset=utf-8"),
-  status_code = 200
-),
-class = "response")
+dummy_res <- structure(
+  list(
+    url = "",
+    status_code = 200L,
+    headers = structure(
+      list(
+        `content-type` = "application/json;charset=utf-8",
+        `content-encoding` = "gzip",
+        `content-length` = "868"
+      ),
+      .Names = c("content-type",
+                 "content-encoding",
+                 "content-length"),
+      class = c("insensitive", "list")
+    ),
+    content = raw(0)
+  ),
+  .Names = c("url",
+             "status_code",
+             "headers",
+             "content"),
+  class = "response"
+)
 
 test_that("estat_getStatsList processes the API response as expected", {
   with_mock(

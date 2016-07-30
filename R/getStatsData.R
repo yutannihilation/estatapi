@@ -62,32 +62,19 @@ estat_getStatsData <- function(appId, statsDataId,
                                ...)
 {
   result <- list()
-  LIMIT <- 100000
 
-  if (.aquire_all) {
-    record_count <- estat_getStatsDataCount(appId, statsDataId, ...)
-    if (is.null(limit)) {
-      max_count <- limit <- record_count
-    } else {
-      max_count <- min(limit, record_count)
-    }
+  record_count <- estat_getStatsDataCount(appId, statsDataId, ...)
+  ranges <- calc_ranges(startPosition, limit, record_count, .aquire_all)
 
-    starts <- seq(from = 1, to = max_count, by = LIMIT)
-    limits <- c(rep(LIMIT, length(starts) - 1), limit %% LIMIT)
-  } else {
-    starts <- startPosition
-    limits <- limit
-  }
-
-  for (i in seq_along(starts)) {
+  for (i in seq_along(ranges$starts)) {
     message(sprintf("Aquiring %.0f records from %.0f (Total %.0f records)...\n",
-                    limits[i], starts[i], max_count))
+                    ranges$limits[i], ranges$starts[i], record_count))
 
     result_text <- estat_api("rest/2.1/app/getSimpleStatsData",
                              appId = appId,
                              statsDataId = statsDataId,
-                             startPosition = format(starts[i], scientific = FALSE),
-                             limit = format(limits[i], scientific = FALSE),
+                             startPosition = format(ranges$starts[i], scientific = FALSE),
+                             limit = format(ranges$limits[i], scientific = FALSE),
                              sectionHeaderFlg = 2, # Skip metadata section
                              ...)
 
@@ -105,7 +92,37 @@ estat_getStatsData <- function(appId, statsDataId,
   dplyr::bind_rows(result)
 }
 
+
 #' @rdname estat_getStatsData
 #' @export
 estat_getSimpleStatsData <- estat_getStatsData
 
+
+calc_ranges <- function(startPosition, limit, record_count, .aquire_all, .max_records_at_once = 100000) {
+  ranges <- list()
+
+  if (is.null(startPosition)) {
+    startPosition <- 1
+  }
+
+  if (is.null(limit)) {
+    endPosition <- record_count
+  } else {
+    endPosition <- min(startPosition + limit - 1, record_count)
+  }
+
+  if (.aquire_all) {
+    ranges$starts <- seq(from = startPosition, to = endPosition, by = .max_records_at_once)
+    ranges$limits <- rep(.max_records_at_once, length(ranges$starts))
+    # treat a fraction
+    fraction <- (endPosition - startPosition + 1) %% .max_records_at_once
+    if (fraction != 0) {
+      ranges$limits[length(ranges$limits)] <- fraction
+    }
+  } else {
+    ranges$starts <- startPosition
+    ranges$limits <- min(startPosition + .max_records_at_once - 1, endPosition)
+  }
+
+  ranges
+}
