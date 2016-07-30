@@ -58,31 +58,54 @@
 estat_getStatsData <- function(appId, statsDataId,
                                startPosition = NULL,
                                limit = NULL,
+                               .aquire_all = TRUE,
                                ...)
 {
-  j <- estat_api("rest/2.0/app/json/getStatsData", appId = appId, statsDataId = statsDataId,
-                 startPosition = startPosition,
-                 limit = limit,
-                 ...)
+  result <- list()
+  LIMIT <- 100000
 
-  # TODO: rerun with startPosition automatically
-  next_key <- j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$NEXT_KEY
-  if(!is.null(next_key) && is.null(limit))
-    message(sprintf("There are more records; please rerun with startPosition=%s", next_key))
+  if (.aquire_all) {
+    record_count <- estat_getStatsDataCount(appId, statsDataId, ...)
+    if (is.null(limit)) {
+      max_count <- limit <- record_count
+    } else {
+      max_count <- min(limit, record_count)
+    }
 
-  class_info <- get_class_info(j$GET_STATS_DATA$STATISTICAL_DATA$CLASS_INF$CLASS_OBJ)
-
-  value_df <- j$GET_STATS_DATA$STATISTICAL_DATA$DATA_INF$VALUE %>%
-    dplyr::bind_rows()
-
-  suppressWarnings(
-    value_df <- value_df %>%
-      dplyr::mutate(value = readr::parse_number(`$`))
-  )
-
-  for (info_name in names(class_info)) {
-    value_df <- merge_class_info(value_df, class_info, info_name)
+    starts <- seq(from = 1, to = max_count, by = LIMIT)
+    limits <- c(rep(LIMIT, length(starts) - 1), limit %% LIMIT)
+  } else {
+    starts <- startPosition
+    limits <- limit
   }
 
-  value_df
+  for (i in seq_along(starts)) {
+    message(sprintf("Aquiring %.0f records from %.0f (Total %.0f records)...\n",
+                    limits[i], starts[i], max_count))
+
+    result_text <- estat_api("rest/2.1/app/getSimpleStatsData",
+                             appId = appId,
+                             statsDataId = statsDataId,
+                             startPosition = format(starts[i], scientific = FALSE),
+                             limit = format(limits[i], scientific = FALSE),
+                             sectionHeaderFlg = 2, # Skip metadata section
+                             ...)
+
+    # The result text should be like:
+    #
+    # "VALUE"
+    # "tab_code","XXXX","cat01_code","YYYY",...
+    result[[i]] <- readr::read_csv(result_text, skip = 1,
+                                                         col_types = readr::cols(
+                                                           value    = readr::col_number(),
+                                                           .default = readr::col_character()
+                                                         ))
+  }
+
+  dplyr::bind_rows(result)
 }
+
+#' @rdname estat_getStatsData
+#' @export
+estat_getSimpleStatsData <- estat_getStatsData
+

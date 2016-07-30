@@ -25,11 +25,18 @@ estat_api <- function(path, appId, ...)
 
   httr::warn_for_status(res)
 
-  result_json <- httr::content(res)
+  # A result of getMetaInfo, getDataCatalog and getStatsList is parsed as JSON.
+  # That of getSimpleStatsData is not parsed (and will be parsed by outside of this function).
+  result_parsed <- httr::content(res)
 
-  if(result_json[[1]]$RESULT$STATUS != 0) stop(result_json[[1]]$RESULT$ERROR_MSG)
+  media <- httr::parse_media(res$headers$`content-type`)
+  if(media$type == "application" && media$subtype == "json") {
+    if(result_parsed[[1]]$RESULT$STATUS != 0) {
+      stop(result_parsed[[1]]$RESULT$ERROR_MSG)
+    }
+  }
 
-  result_json
+  result_parsed
 }
 
 flatten_query <- function(x)
@@ -78,4 +85,17 @@ merge_class_info <- function(value_df, class_info, name)
   key <- sprintf("@%s", name)
   colnames(info) <- c(key, sprintf("%s_info", name))
   dplyr::left_join(value_df, info, by = key)
+}
+
+
+estat_getStatsDataCount <- function(appId, statsDataId, ...)
+{
+  j <- estat_api("rest/2.1/app/json/getStatsData",
+            appId = appId,
+            statsDataId = statsDataId,
+            metaGetFlg = "N",
+            cntGetFlg = "Y",
+            ...)
+
+  as.numeric(j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$TOTAL_NUMBER)
 }

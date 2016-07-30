@@ -49,7 +49,7 @@ estat_getDataCatalog <- function(appId, use_label = TRUE,
                                  limit = NULL,
                                  updatedDate = NULL,
                                  ...) {
-  j <- estat_api("rest/2.0/app/json/getDataCatalog", appId = appId,
+  j <- estat_api("rest/2.1/app/json/getDataCatalog", appId = appId,
                  surveyYears = surveyYears,
                  openYears = openYears,
                  statsField = statsField,
