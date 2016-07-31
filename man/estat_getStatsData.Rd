@@ -20,6 +20,9 @@ estat_getSimpleStatsData(appId, statsDataId, startPosition = NULL,
 
 \item{limit}{Integer. Max number of records to get.}
 
+\item{.aquire_all}{Whether to aquire all records when the number of records
+is larger than 100,000.}
+
 \item{...}{Other parameters like \code{lvCat01} and \code{cdCat01}.
 See \code{Other parameters} section for more details.}
 }

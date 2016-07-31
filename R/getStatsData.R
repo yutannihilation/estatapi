@@ -6,6 +6,8 @@
 #' @param statsDataId ID of the statistical dataset
 #' @param startPosition Integer. The the first record to get.
 #' @param limit Integer. Max number of records to get.
+#' @param .aquire_all Whether to aquire all records when the number of records
+#'                    is larger than 100,000.
 #' @param ... Other parameters like \code{lvCat01} and \code{cdCat01}.
 #'    See \code{Other parameters} section for more details.
 #'
@@ -98,7 +100,11 @@ estat_getStatsData <- function(appId, statsDataId,
 estat_getSimpleStatsData <- estat_getStatsData
 
 
-calc_ranges <- function(startPosition, limit, record_count, .aquire_all, .max_records_at_once = 100000) {
+calc_ranges <- function(startPosition,
+                        limit,
+                        record_count,
+                        .aquire_all,
+                        .max_records_at_once = 100000) {
   ranges <- list()
 
   if (is.null(startPosition)) {
