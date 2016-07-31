@@ -92,7 +92,7 @@ estat_getStatsData <- function(appId, statsDataId,
   for (i in seq_along(ranges$starts)) {
     message(sprintf("Fetching %.0f records (%.0f-%.0f / %.0f)\n",
                     ranges$limits[i], ranges$starts[i],
-                    ranges$starts[i] - ranges$limits[i], record_count))
+                    ranges$starts[i] + ranges$limits[i], record_count))
 
     result[[i]] <- estat_api("rest/2.1/app/getSimpleStatsData",
                              appId = appId,
