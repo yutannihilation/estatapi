@@ -1,14 +1,16 @@
 context("API with real request")
 
-if (!file.exists("../../.appId")) {
-  skip("appId is not available")
+wrap_api_func <- function(fun, ...) {
+  if (!file.exists("../../.appId")) {
+    skip("appId is not available")
+  }
+  appId <- readr::read_lines("../../.appId")
+  purrr::partial(fun, appId = appId)
 }
 
-appId <- readr::read_lines("../../.appId")
-
 test_that("estat_getStatsData without limit and startPosition, with >100000 records works fine", {
-  d <- estat_getStatsData(
-    appId = appId,
+  func_getStatsData <- wrap_api_func(estat_getStatsData)
+  d <- func_getStatsData(
     statsDataId = "0003103532",
     cdCat01 = c("010800130","010800140")
   )
