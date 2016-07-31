@@ -21,5 +21,5 @@ estat_getMetaInfo <- function(appId, statsDataId, lang = c("J", "E"), ...) {
   lang <- match.arg(lang)
   j <- estat_api("rest/2.1/app/json/getMetaInfo", appId = appId, statsDataId = statsDataId, lang = lang, ...)
 
-  get_class_info(j$GET_META_INFO$METADATA_INF$CLASS_INF$CLASS_OBJ)
+  meta_info <- get_class_info(j$GET_META_INFO$METADATA_INF$CLASS_INF$CLASS_OBJ)
 }

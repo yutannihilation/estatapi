@@ -74,9 +74,13 @@ try_dollar <- function(x, .use_label = TRUE) {
 
 get_class_info <- function(class_obj)
 {
+  meta_ids <- purrr::map_chr(class_obj, "@id")
+  meta_names <- purrr::map_chr(class_obj, "@name")
+
   class_info <- purrr::map(class_obj, ~ dplyr::bind_rows(.$CLASS))
-  names(class_info) <- purrr::map_chr(class_obj, ~ .$`@id`)
-  class_info
+  names(class_info) <- meta_ids
+
+  purrr::update_list(class_info, .names = dplyr::data_frame(id = meta_ids, name = meta_names))
 }
 
 merge_class_info <- function(value_df, class_info, name)

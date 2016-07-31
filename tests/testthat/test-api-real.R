@@ -3,10 +3,10 @@ context("API with real request")
 
 # Constants ---------------------------------------------
 
-EXPECTED_NAMES <- c("tab_code", "\u8868\u7ae0\u9805\u76ee", "cat01_code", "\u54c1\u76ee\u5206\u985e\uff0827\u5e74\u6539\u5b9a\uff09",
-                    "cat02_code", "\u4e16\u5e2f\u533a\u5206", "area_code", "\u5730\u57df\u533a\u5206",
-                    "time_code", "\u6642\u9593\u8ef8\uff08\u6708\u6b21\uff09",
-                    "unit", "value")
+EXPECTED_NAMES <- c("tab_code", "cat01_code", "cat02_code", "area_code", "time_code", "unit", "value",
+                    "\u8868\u7ae0\u9805\u76ee", "\u54c1\u76ee\u5206\u985e\uff0827\u5e74\u6539\u5b9a\uff09",
+                    "\u4e16\u5e2f\u533a\u5206", "\u5730\u57df\u533a\u5206",
+                    "\u6642\u9593\u8ef8\uff08\u6708\u6b21\uff09")
 
 STATS_DATA_ID <- "0003103532"
 
@@ -186,7 +186,7 @@ test_that("estat_getStatsData with <100000 records in English works fine", {
     lang = "E"
   )
 
-  check_df(d, 578, c("tab_code", "Tabulated variable", "cat01_code", "Items", "area_code",
-                     "AREA", "time_code", "Time", "unit", "value"))
+  check_df(d, 578, c("tab_code", "cat01_code", "area_code", "time_code", "unit", "value",
+                     "Items", "Tabulated variable", "AREA", "Time"))
 })
 

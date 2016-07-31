@@ -65,17 +65,12 @@ test_that("estat_getMetaInfo processes the API response as expected", {
 })
 
 test_that("estat_getStatsData processes the API response as expected", {
-  # The result contains non-UTF-8 characters, so we need to do this
-  # in order to treat different encodings on various platforms
-  result <- readRDS("result_getStatsData.rds")
-  names(result) <- iconv(names(result), from = "CP932")
-
   with_mock(
     `estatapi:::estat_getStatsDataCount` = function(...) 40014,
+    `estatapi::estat_getMetaInfo` = function(...) readRDS("result_getMetaInfo.rds"),
     `httr::GET` = function(...)
       purrr::update_list(dummy_res,
-                         content = readRDS("content_getStatsData.rds"),
-                         headers = list(`content-type` = "text/plain;charset=utf-8")),
+                         content = readRDS("content_getStatsData.rds")),
     expect_identical(
       estat_getStatsData(
         appId = "XXXX",
@@ -83,7 +78,7 @@ test_that("estat_getStatsData processes the API response as expected", {
         cdCat01 = c("008", "009", "010"),
         limit = 3
       ),
-      result
+      readRDS("result_getStatsData.rds")
     )
   )
 })

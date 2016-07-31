@@ -88,54 +88,50 @@ estat_getStatsData <- function(appId, statsDataId,
 {
   lang <- match.arg(lang)
 
-  tabs <- get_tabs(appId = appId, statsDataId = statsDataId, cdTab = list(...)$cdTab)
-
-  if (is.null(tabs)) {
-    total_record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, ...)
-    ranges <- calc_ranges(startPosition, limit, total_record_count, .fetch_all)
-  } else {
-    ranges <- list()
-    for (tab in tabs) {
-      record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, cdTab = tab, ...)
-      ranges[[tab]] <- calc_ranges(startPosition, limit, record_count, .fetch_all)
-
-      if (!is.null(limit)) {
-        limit <- limit - record_count
-        if (limit < 1) break
-      }
-    }
-    ranges <- dplyr::bind_rows(ranges, .id = "tab")
-    total_record_count <- sum(ranges$limits)
-  }
+  meta_info <- estat_getMetaInfo(appId, statsDataId)
+  total_record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, ...)
+  ranges <- calc_ranges(startPosition, limit, total_record_count, .fetch_all)
 
   result <- list()
 
   for (i in seq_len(nrow(ranges))) {
-    cur_tab   <- if(is.null(tabs)) NULL else ranges$tab[i]
     cur_limit <- ranges$limits[i]
     cur_start <- ranges$starts[i]
 
-    message(sprintf("Fetching %.0f records of cdTab=%s... (total: %.0f records)\n",
-                    cur_limit, cur_tab, total_record_count))
+    message(sprintf("Fetching record %.0f-%.0f... (total: %.0f records)\n",
+                    cur_start, cur_start + cur_limit - 1, total_record_count))
 
-    result[[i]] <- estat_api("rest/2.1/app/getSimpleStatsData",
+    j <- estat_api("rest/2.1/app/json/getStatsData",
                              appId = appId,
                              statsDataId = statsDataId,
                              startPosition = format(cur_start, scientific = FALSE),
                              limit = format(cur_limit, scientific = FALSE),
-                             cdTab = cur_tab,
                              lang = lang,
-                             sectionHeaderFlg = 2, # Skip metadata section
+                             metaGetFlg = "N",
                              ...)
+
+    value_df <- j$GET_STATS_DATA$STATISTICAL_DATA$DATA_INF$VALUE %>%
+      dplyr::bind_rows()
+
+    result[[i]] <- value_df
   }
 
-  dplyr::bind_rows(result)
+  result_df <- result %>%
+    dplyr::bind_rows() %>%
+    dplyr::mutate(`$` = suppressWarnings(readr::parse_number(`$`)))
+
+  colnames(result_df) <- colnames(result_df) %>%
+    purrr::map_chr(~ paste0(substring(., 2), "_code")) %>%
+    dplyr::recode("_code" = "value", "unit_code" = "unit")
+
+  for (meta in purrr::transpose(meta_info$.names)) {
+    meta_df <- meta_info[[meta$id]]
+    meta_vec <- purrr::set_names(x  = meta_df[["@name"]],
+                                 nm = meta_df[["@code"]])
+    result_df[, meta$name] <- meta_vec[result_df[[paste0(meta$id, "_code")]]]
+  }
+  result_df
 }
-
-
-#' @rdname estat_getStatsData
-#' @export
-estat_getSimpleStatsData <- estat_getStatsData
 
 
 estat_getStatsDataCount <- function(appId, statsDataId, ...)

@@ -16,4 +16,3 @@
 ## Minor Changes
 
 * Show license notice on startup.
-* Add `estat_getSimpleStatsData()` as an alias to `estat_getStatsData()`.
