@@ -5,3 +5,4 @@
 ^README\.en\.md$
 ^cran-comments\.md$
 ^appveyor\.yml$
+^\.appId$

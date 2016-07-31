@@ -23,8 +23,8 @@
 #' @param ... Other parameters.
 #'
 #' @seealso
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_6}
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_7}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_6}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_7}
 #'
 #' @examples
 #' \dontrun{
@@ -49,7 +49,7 @@ estat_getDataCatalog <- function(appId, use_label = TRUE,
                                  limit = NULL,
                                  updatedDate = NULL,
                                  ...) {
-  j <- estat_api("rest/2.0/app/json/getDataCatalog", appId = appId,
+  j <- estat_api("rest/2.1/app/json/getDataCatalog", appId = appId,
                  surveyYears = surveyYears,
                  openYears = openYears,
                  statsField = statsField,

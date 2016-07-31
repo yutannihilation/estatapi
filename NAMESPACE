@@ -3,6 +3,7 @@
 export(estat_api)
 export(estat_getDataCatalog)
 export(estat_getMetaInfo)
+export(estat_getSimpleStatsData)
 export(estat_getStatsData)
 export(estat_getStatsList)
 importFrom(dplyr,"%>%")

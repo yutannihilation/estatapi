@@ -6,12 +6,14 @@
 #' @param statsDataId ID of the statistical dataset
 #' @param startPosition Integer. The the first record to get.
 #' @param limit Integer. Max number of records to get.
+#' @param .fetch_all Whether to fetch all records when the number of records
+#'                    is larger than 100,000.
 #' @param ... Other parameters like \code{lvCat01} and \code{cdCat01}.
 #'    See \code{Other parameters} section for more details.
 #'
 #' @seealso
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3}
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_4}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_3}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_4}
 #' @section Other parameters:
 #' For every detailed information, please visit the URL in See Also.
 #' \itemize{
@@ -46,43 +48,98 @@
 #'
 #' @examples
 #' \dontrun{
+#' # fetch all data, which may take time
+#' estat_getStatsData(
+#'   appId = "XXXX",
+#'   statsDataId = "0003065345"
+#' )
+#'
+#' # fetch data up to 10 records
 #' estat_getStatsData(
 #'   appId = "XXXX",
 #'   statsDataId = "0003065345",
-#'   cdCat01 = c("008", "009", "010"),
-#'   limit = 3
+#'   limit = 10
 #' )
+#'
+#' # fetch data up to 100,000 records (max number of records available at once)
+#' estat_getStatsData(
+#'   appId = "XXXX",
+#'   statsDataId = "0003065345",
+#'   .fetch_all = FALSE
+#' )
+#'
+#' # fetch all data in the specifed category
+#' estat_getStatsData(
+#'   appId = "XXXX",
+#'   statsDataId = "0003065345",
+#'   cdCat01 = c("008", "009", "010")
+#' )
+#'
 #' }
 #'
 #' @export
 estat_getStatsData <- function(appId, statsDataId,
                                startPosition = NULL,
                                limit = NULL,
+                               .fetch_all = TRUE,
                                ...)
 {
-  j <- estat_api("rest/2.0/app/json/getStatsData", appId = appId, statsDataId = statsDataId,
-                 startPosition = startPosition,
-                 limit = limit,
-                 ...)
+  result <- list()
 
-  # TODO: rerun with startPosition automatically
-  next_key <- j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$NEXT_KEY
-  if(!is.null(next_key) && is.null(limit))
-    message(sprintf("There are more records; please rerun with startPosition=%s", next_key))
+  record_count <- estat_getStatsDataCount(appId, statsDataId, ...)
+  ranges <- calc_ranges(startPosition, limit, record_count, .fetch_all)
 
-  class_info <- get_class_info(j$GET_STATS_DATA$STATISTICAL_DATA$CLASS_INF$CLASS_OBJ)
+  for (i in seq_along(ranges$starts)) {
+    message(sprintf("Fetching %.0f records (%.0f / %.0f)\n",
+                    ranges$limits[i], ranges$starts[i], record_count))
 
-  value_df <- j$GET_STATS_DATA$STATISTICAL_DATA$DATA_INF$VALUE %>%
-    dplyr::bind_rows()
-
-  suppressWarnings(
-    value_df <- value_df %>%
-      dplyr::mutate(value = readr::parse_number(`$`))
-  )
-
-  for (info_name in names(class_info)) {
-    value_df <- merge_class_info(value_df, class_info, info_name)
+    result[[i]] <- estat_api("rest/2.1/app/getSimpleStatsData",
+                             appId = appId,
+                             statsDataId = statsDataId,
+                             startPosition = format(ranges$starts[i], scientific = FALSE),
+                             limit = format(ranges$limits[i], scientific = FALSE),
+                             sectionHeaderFlg = 2, # Skip metadata section
+                             ...)
   }
 
-  value_df
+  dplyr::bind_rows(result)
+}
+
+
+#' @rdname estat_getStatsData
+#' @export
+estat_getSimpleStatsData <- estat_getStatsData
+
+
+calc_ranges <- function(startPosition,
+                        limit,
+                        record_count,
+                        .fetch_all,
+                        .max_records_at_once = 100000) {
+  ranges <- list()
+
+  if (is.null(startPosition)) {
+    startPosition <- 1
+  }
+
+  if (is.null(limit)) {
+    endPosition <- record_count
+  } else {
+    endPosition <- min(startPosition + limit - 1, record_count)
+  }
+
+  if (.fetch_all) {
+    ranges$starts <- seq(from = startPosition, to = endPosition, by = .max_records_at_once)
+    ranges$limits <- rep(.max_records_at_once, length(ranges$starts))
+    # treat a fraction
+    fraction <- (endPosition - startPosition + 1) %% .max_records_at_once
+    if (fraction != 0) {
+      ranges$limits[length(ranges$limits)] <- fraction
+    }
+  } else {
+    ranges$starts <- startPosition
+    ranges$limits <- min(startPosition + .max_records_at_once - 1, endPosition)
+  }
+
+  ranges
 }
