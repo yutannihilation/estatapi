@@ -6,6 +6,7 @@
 #' @param statsDataId ID of the statistical dataset
 #' @param startPosition Integer. The the first record to get.
 #' @param limit Integer. Max number of records to get.
+#' @param lang Language of data. \code{"J"}(Japanese) or \code{"E"}(English).
 #' @param .fetch_all Whether to fetch all records when the number of records
 #'                    is larger than 100,000.
 #' @param ... Other parameters like \code{lvCat01} and \code{cdCat01}.
@@ -81,26 +82,49 @@
 estat_getStatsData <- function(appId, statsDataId,
                                startPosition = NULL,
                                limit = NULL,
+                               lang = c("J", "E"),
                                .fetch_all = TRUE,
                                ...)
 {
+  lang <- match.arg(lang)
+
+  tabs <- get_tabs(appId = appId, statsDataId = statsDataId, cdTab = list(...)$cdTab)
+
+  if (is.null(tabs)) {
+    total_record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, ...)
+    ranges <- calc_ranges(startPosition, limit, total_record_count, .fetch_all)
+  } else {
+    ranges <- list()
+    for (tab in tabs) {
+      record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, cdTab = tab, ...)
+      ranges[[tab]] <- calc_ranges(startPosition, limit, record_count, .fetch_all)
+
+      if (!is.null(limit)) {
+        limit <- limit - record_count
+        if (limit < 1) break
+      }
+    }
+    ranges <- dplyr::bind_rows(ranges, .id = "tab")
+    total_record_count <- sum(ranges$limits)
+  }
+
   result <- list()
 
-  record_count <- estat_getStatsDataCount(appId, statsDataId, ...)
-  ranges <- calc_ranges(startPosition, limit, record_count, .fetch_all)
+  for (i in seq_len(nrow(ranges))) {
+    cur_tab   <- if(is.null(tabs)) NULL else ranges$tab[i]
+    cur_limit <- ranges$limits[i]
+    cur_start <- ranges$starts[i]
 
-  for (i in seq_along(ranges$starts)) {
-    message(sprintf("Fetching %.0f records (%.0f-%.0f / %.0f)\n",
-                    ranges$limits[i],
-                    ranges$starts[i],
-                    ranges$starts[i] + ranges$limits[i] - 1,
-                    record_count))
+    message(sprintf("Fetching %.0f records of cdTab=%s... (total: %.0f records)\n",
+                    cur_limit, cur_tab, total_record_count))
 
     result[[i]] <- estat_api("rest/2.1/app/getSimpleStatsData",
                              appId = appId,
                              statsDataId = statsDataId,
-                             startPosition = format(ranges$starts[i], scientific = FALSE),
-                             limit = format(ranges$limits[i], scientific = FALSE),
+                             startPosition = format(cur_start, scientific = FALSE),
+                             limit = format(cur_limit, scientific = FALSE),
+                             cdTab = cur_tab,
+                             lang = lang,
                              sectionHeaderFlg = 2, # Skip metadata section
                              ...)
   }
@@ -112,6 +136,19 @@ estat_getStatsData <- function(appId, statsDataId,
 #' @rdname estat_getStatsData
 #' @export
 estat_getSimpleStatsData <- estat_getStatsData
+
+
+estat_getStatsDataCount <- function(appId, statsDataId, ...)
+{
+  j <- estat_api("rest/2.1/app/json/getStatsData",
+                 appId = appId,
+                 statsDataId = statsDataId,
+                 metaGetFlg = "N",
+                 cntGetFlg = "Y",
+                 ...)
+
+  as.numeric(j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$TOTAL_NUMBER)
+}
 
 
 calc_ranges <- function(startPosition,
@@ -144,5 +181,23 @@ calc_ranges <- function(startPosition,
     ranges$limits <- min(startPosition + .max_records_at_once - 1, endPosition)
   }
 
-  ranges
+  dplyr::as_data_frame(ranges)
+}
+
+# cdTab may be (1) NULL, (2) a vector of strings or (3) a string of numbers separated by ","
+get_tabs <- function(appId, statsDataId, cdTab) {
+  if (is.null(cdTab)) {
+    # when (1), try to get all tab from getMetaInfo API
+    meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId)
+
+    # tab does not always exist.
+    if (!is.null(meta_info$tab)) {
+      meta_info$tab$`@code`
+    } else {
+      NULL
+    }
+  } else {
+    # when (2) or (3), split it by ","
+    unlist(strsplit(cdTab, ",", fixed = TRUE))
+  }
 }

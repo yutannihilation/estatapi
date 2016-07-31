@@ -40,9 +40,12 @@ estat_api <- function(path, appId, ...)
 
 flatten_query <- function(x)
 {
-  x %>%
+  x <- x %>%
     purrr::compact() %>%
     purrr::map(~ paste0(as.character(.), collapse = ","))
+
+  # Ignore duplicated elements
+  x[unique(names(x))]
 }
 
 as_flattened_character <- function(x, .use_label = TRUE)
@@ -84,19 +87,6 @@ merge_class_info <- function(value_df, class_info, name)
   key <- sprintf("@%s", name)
   colnames(info) <- c(key, sprintf("%s_info", name))
   dplyr::left_join(value_df, info, by = key)
-}
-
-
-estat_getStatsDataCount <- function(appId, statsDataId, ...)
-{
-  j <- estat_api("rest/2.1/app/json/getStatsData",
-            appId = appId,
-            statsDataId = statsDataId,
-            metaGetFlg = "N",
-            cntGetFlg = "Y",
-            ...)
-
-  as.numeric(j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$TOTAL_NUMBER)
 }
 
 parse_result_json <- function(res) {

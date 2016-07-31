@@ -4,15 +4,17 @@
 \alias{estat_getStatsList}
 \title{getStatsList API}
 \usage{
-estat_getStatsList(appId, searchWord, .use_label = TRUE, surveyYears = NULL,
-  openYears = NULL, statsField = NULL, statsCode = NULL,
-  searchKind = NULL, startPosition = NULL, limit = NULL,
-  updatedDate = NULL, ...)
+estat_getStatsList(appId, searchWord, lang = c("J", "E"), .use_label = TRUE,
+  surveyYears = NULL, openYears = NULL, statsField = NULL,
+  statsCode = NULL, searchKind = NULL, startPosition = NULL,
+  limit = NULL, updatedDate = NULL, ...)
 }
 \arguments{
 \item{appId}{Application ID}
 
 \item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).}
+
+\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
 \item{.use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
 (default: \code{TRUE})}

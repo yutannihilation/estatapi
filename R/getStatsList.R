@@ -4,6 +4,7 @@
 #'
 #' @param appId Application ID
 #' @param searchWord Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).
+#' @param lang Language of data. \code{"J"}(Japanese) or \code{"E"}(English).
 #' @param .use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
 #'        (default: \code{TRUE})
 #' @param surveyYears Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}
@@ -33,7 +34,9 @@
 #' )
 #' }
 #' @export
-estat_getStatsList <- function(appId, searchWord, .use_label = TRUE,
+estat_getStatsList <- function(appId, searchWord,
+                               lang = c("J", "E"),
+                               .use_label = TRUE,
                                surveyYears = NULL,
                                openYears = NULL,
                                statsField = NULL,
@@ -43,8 +46,10 @@ estat_getStatsList <- function(appId, searchWord, .use_label = TRUE,
                                limit = NULL,
                                updatedDate = NULL,
                                ...) {
+  lang <- match.arg(lang)
 
   j <- estat_api("rest/2.0/app/json/getStatsList", appId = appId, searchWord = searchWord,
+                 lang = lang,
                  surveyYears = surveyYears,
                  openYears = openYears,
                  statsField = statsField,

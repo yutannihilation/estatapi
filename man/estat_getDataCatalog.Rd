@@ -4,14 +4,16 @@
 \alias{estat_getDataCatalog}
 \title{getDataCatalog API}
 \usage{
-estat_getDataCatalog(appId, .use_label = TRUE, surveyYears = NULL,
-  openYears = NULL, statsField = NULL, statsCode = NULL,
-  searchWord = NULL, dataType = NULL, catalogId = NULL,
-  resourceId = NULL, startPosition = NULL, limit = NULL,
-  updatedDate = NULL, ...)
+estat_getDataCatalog(appId, lang = c("J", "E"), .use_label = TRUE,
+  surveyYears = NULL, openYears = NULL, statsField = NULL,
+  statsCode = NULL, searchWord = NULL, dataType = NULL,
+  catalogId = NULL, resourceId = NULL, startPosition = NULL,
+  limit = NULL, updatedDate = NULL, ...)
 }
 \arguments{
 \item{appId}{Application ID}
+
+\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
 \item{.use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
 (default: \code{TRUE})}

@@ -4,12 +4,14 @@
 \alias{estat_getMetaInfo}
 \title{getMetaInfo API}
 \usage{
-estat_getMetaInfo(appId, statsDataId, ...)
+estat_getMetaInfo(appId, statsDataId, lang = c("J", "E"), ...)
 }
 \arguments{
 \item{appId}{Application ID}
 
 \item{statsDataId}{ID of the statistical dataset}
+
+\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
 \item{...}{Other parameters.}
 }

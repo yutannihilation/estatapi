@@ -3,6 +3,7 @@
 #' Get information about the statistical dataset files and databases via e-Stat API.
 #'
 #' @param appId Application ID
+#' @param lang Language of data. \code{"J"}(Japanese) or \code{"E"}(English).
 #' @param .use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
 #'        (default: \code{TRUE})
 #' @param surveyYears Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}
@@ -36,7 +37,9 @@
 #' )
 #' }
 #' @export
-estat_getDataCatalog <- function(appId, .use_label = TRUE,
+estat_getDataCatalog <- function(appId,
+                                 lang = c("J", "E"),
+                                 .use_label = TRUE,
                                  surveyYears = NULL,
                                  openYears = NULL,
                                  statsField = NULL,
@@ -49,7 +52,10 @@ estat_getDataCatalog <- function(appId, .use_label = TRUE,
                                  limit = NULL,
                                  updatedDate = NULL,
                                  ...) {
+  lang <- match.arg(lang)
+
   j <- estat_api("rest/2.1/app/json/getDataCatalog", appId = appId,
+                 lang = lang,
                  surveyYears = surveyYears,
                  openYears = openYears,
                  statsField = statsField,

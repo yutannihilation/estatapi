@@ -172,3 +172,21 @@ test_that("estat_getStatsData with >100000 records and startPosition and limit <
 
   check_df(d, 90000)
 })
+
+
+# Test English -----------------------------------------------
+
+test_that("estat_getStatsData with <100000 records in English works fine", {
+  func_getStatsData <- wrap_api_func(estat_getStatsData)
+  d <- func_getStatsData(
+    statsDataId = "0003036792",
+    cdTab = "2",
+    cdArea = "13A01",
+    cdCat01 = "7009",
+    lang = "E"
+  )
+
+  check_df(d, 578, c("tab_code", "Tabulated variable", "cat01_code", "Items", "area_code",
+                     "AREA", "time_code", "Time", "unit", "value"))
+})
+

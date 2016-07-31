@@ -6,10 +6,10 @@
 \title{getStatsData API}
 \usage{
 estat_getStatsData(appId, statsDataId, startPosition = NULL, limit = NULL,
-  .fetch_all = TRUE, ...)
+  lang = c("J", "E"), .fetch_all = TRUE, ...)
 
 estat_getSimpleStatsData(appId, statsDataId, startPosition = NULL,
-  limit = NULL, .fetch_all = TRUE, ...)
+  limit = NULL, lang = c("J", "E"), .fetch_all = TRUE, ...)
 }
 \arguments{
 \item{appId}{application ID}
@@ -19,6 +19,8 @@ estat_getSimpleStatsData(appId, statsDataId, startPosition = NULL,
 \item{startPosition}{Integer. The the first record to get.}
 
 \item{limit}{Integer. Max number of records to get.}
+
+\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
 \item{.fetch_all}{Whether to fetch all records when the number of records
 is larger than 100,000.}
