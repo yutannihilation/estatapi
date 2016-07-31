@@ -93,23 +93,13 @@ estat_getStatsData <- function(appId, statsDataId,
     message(sprintf("Fetching %.0f records (%.0f / %.0f)\n",
                     ranges$limits[i], ranges$starts[i], record_count))
 
-    result_text <- estat_api("rest/2.1/app/getSimpleStatsData",
+    result[[i]] <- estat_api("rest/2.1/app/getSimpleStatsData",
                              appId = appId,
                              statsDataId = statsDataId,
                              startPosition = format(ranges$starts[i], scientific = FALSE),
                              limit = format(ranges$limits[i], scientific = FALSE),
                              sectionHeaderFlg = 2, # Skip metadata section
                              ...)
-
-    # The result text should be like:
-    #
-    # "VALUE"
-    # "tab_code","XXXX","cat01_code","YYYY",...
-    result[[i]] <- readr::read_csv(result_text, skip = 1,
-                                                         col_types = readr::cols(
-                                                           value    = readr::col_number(),
-                                                           .default = readr::col_character()
-                                                         ))
   }
 
   dplyr::bind_rows(result)

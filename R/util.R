@@ -25,18 +25,17 @@ estat_api <- function(path, appId, ...)
 
   httr::warn_for_status(res)
 
-  # A result of getMetaInfo, getDataCatalog and getStatsList is parsed as JSON.
-  # That of getSimpleStatsData is not parsed (and will be parsed by outside of this function).
-  result_parsed <- httr::content(res)
-
   media <- httr::parse_media(res$headers$`content-type`)
-  if(media$type == "application" && media$subtype == "json") {
-    if(result_parsed[[1]]$RESULT$STATUS != 0) {
-      stop(result_parsed[[1]]$RESULT$ERROR_MSG)
-    }
-  }
 
-  result_parsed
+  # A result of getMetaInfo, getDataCatalog and getStatsList is parsed as JSON.
+  # That of getSimpleStatsData is parsed as CSV.
+  if (media$type == "application" && media$subtype == "json") {
+    parse_result_json(res)
+  } else if (media$type == "text" && media$subtype == "plain") {
+    parse_result_csv(res)
+  } else {
+    stop("unknown media type: ", res$headers$`content-type`)
+  }
 }
 
 flatten_query <- function(x)
@@ -98,4 +97,40 @@ estat_getStatsDataCount <- function(appId, statsDataId, ...)
             ...)
 
   as.numeric(j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$TOTAL_NUMBER)
+}
+
+parse_result_json <- function(res) {
+  result_parsed <- httr::content(res)
+
+  if (result_parsed[[1]]$RESULT$STATUS != 0) {
+    stop(result_parsed[[1]]$RESULT$ERROR_MSG)
+  }
+
+  result_parsed
+}
+
+# Example responses of getStatsData:
+#
+# 1) success
+#     "VALUE"
+#     "tab_code","XXXX","cat01_code","YYYY",...
+#
+# 2) fail
+#     "RESULT"
+#     "STATUS","100"
+#     "ERROR_MSG","..."
+#     "DATE","2016-XX-XXTXX:XX:XX.XXX+09:00"
+parse_result_csv <- function(res) {
+  result_text <- httr::content(res, as = "text")
+
+  if (readr::read_lines(result_text, n_max = 1) != "\"VALUE\"") {
+    stop(result_text)
+  }
+
+  readr::read_csv(result_text,
+                  skip = 1,
+                  col_types = readr::cols(
+                    value    = readr::col_number(),
+                    .default = readr::col_character()
+                  ))
 }
