@@ -4,7 +4,7 @@
 \alias{estat_getDataCatalog}
 \title{getDataCatalog API}
 \usage{
-estat_getDataCatalog(appId, use_label = TRUE, surveyYears = NULL,
+estat_getDataCatalog(appId, .use_label = TRUE, surveyYears = NULL,
   openYears = NULL, statsField = NULL, statsCode = NULL,
   searchWord = NULL, dataType = NULL, catalogId = NULL,
   resourceId = NULL, startPosition = NULL, limit = NULL,
@@ -13,7 +13,7 @@ estat_getDataCatalog(appId, use_label = TRUE, surveyYears = NULL,
 \arguments{
 \item{appId}{Application ID}
 
-\item{use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
+\item{.use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
 (default: \code{TRUE})}
 
 \item{surveyYears}{Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}}

@@ -45,24 +45,24 @@ flatten_query <- function(x)
     purrr::map(~ paste0(as.character(.), collapse = ","))
 }
 
-as_flattened_character <- function(x, use_label = TRUE)
+as_flattened_character <- function(x, .use_label = TRUE)
 {
   x %>%
-    purrr::map(try_dollar, use_label = use_label) %>%
+    purrr::map(try_dollar, .use_label = .use_label) %>%
     purrr::flatten() %>%
     purrr::map(as.character)
 }
 
 # 1) scalar value  ->  return x as it is
 # 2) list with "$" element
-#   2-1) if use_label is TRUE  ->  return the value of "$"
-#   2-2) if use_label is FALSE ->  return the other value
+#   2-1) if .use_label is TRUE  ->  return the value of "$"
+#   2-2) if .use_label is FALSE ->  return the other value
 # 3) list without "$" element  ->  return x as it is (x will be flattened outside of this function)
-try_dollar <- function(x, use_label = TRUE) {
+try_dollar <- function(x, .use_label = TRUE) {
   if(! is.list(x)) return(x)
   if(! "$" %in% names(x)) return(x)
 
-  if(use_label) {
+  if(.use_label) {
     x[["$"]]
   } else {
     x[[which(names(x) != "$")]]

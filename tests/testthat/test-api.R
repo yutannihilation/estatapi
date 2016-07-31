@@ -46,7 +46,7 @@ test_that("estat_getStatsList (w/o label) processes the API response as expected
         appId = "XXXX",
         searchWord = "CD",
         limit = 3,
-        use_label = FALSE
+        .use_label = FALSE
       ),
       readRDS("result_getStatsList_wo_label.rds")
     )
@@ -114,7 +114,7 @@ test_that("estat_getDataCatalog (w/o label) processes the API response as expect
         appId = "XXXX",
         searchWord = "\u30c1\u30e7\u30b3\u30ec\u30fc\u30c8",
         dataType = c("PDF", "XLS"),
-        use_label = FALSE
+        .use_label = FALSE
       ),
       readRDS("result_getDataCatalog_wo_label.rds")
     )

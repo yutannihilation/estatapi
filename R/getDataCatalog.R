@@ -3,7 +3,7 @@
 #' Get information about the statistical dataset files and databases via e-Stat API.
 #'
 #' @param appId Application ID
-#' @param use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
+#' @param .use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
 #'        (default: \code{TRUE})
 #' @param surveyYears Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}
 #' @param openYears Year and month when the survey result was opened. The format is the same as \code{surveyYears}
@@ -36,7 +36,7 @@
 #' )
 #' }
 #' @export
-estat_getDataCatalog <- function(appId, use_label = TRUE,
+estat_getDataCatalog <- function(appId, .use_label = TRUE,
                                  surveyYears = NULL,
                                  openYears = NULL,
                                  statsField = NULL,
@@ -64,11 +64,11 @@ estat_getDataCatalog <- function(appId, use_label = TRUE,
                  ...)
 
   j$GET_DATA_CATALOG$DATA_CATALOG_LIST_INF$DATA_CATALOG_INF %>%
-    purrr::map(denormalize_data_catalog_inf, use_label = use_label) %>%
+    purrr::map(denormalize_data_catalog_inf, .use_label = .use_label) %>%
     dplyr::bind_rows()
 }
 
-denormalize_data_catalog_inf <- function(inf, use_label = TRUE) {
+denormalize_data_catalog_inf <- function(inf, .use_label = TRUE) {
   # Columns which needs special treatments:
   #   - STAT_NAME and ORGANIZATION have different nested level
   #   - other columns will conflict between DATASET and RESOURCE
@@ -79,7 +79,7 @@ denormalize_data_catalog_inf <- function(inf, use_label = TRUE) {
 
   dataset_inf <- purrr::discard(DATASET,
                                 names(DATASET) %in% special_columns) %>%
-    as_flattened_character(use_label = use_label) %>%
+    as_flattened_character(.use_label = .use_label) %>%
     purrr::update_list(
       `DATASET_@id`        = inf$`@id`,
       DATASET_DESCRIPTION  = DATASET$DESCRIPTION,
@@ -93,11 +93,11 @@ denormalize_data_catalog_inf <- function(inf, use_label = TRUE) {
   # RESOURCE may be a list or a list of lists
   resources_inf <- if(is.character(RESOURCE[[1]])) {
     RESOURCE %>%
-      as_flattened_character(use_label = use_label) %>%
+      as_flattened_character(.use_label = .use_label) %>%
       dplyr::as_data_frame()
   } else {
     RESOURCE %>%
-      purrr::map(as_flattened_character, use_label = use_label) %>%
+      purrr::map(as_flattened_character, .use_label = .use_label) %>%
       dplyr::bind_rows()
   }
 

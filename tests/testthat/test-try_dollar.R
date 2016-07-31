@@ -13,7 +13,7 @@ test_that("If x is a list with no `$` element, return x as it is", {
   expect_equal(try_dollar(iris), iris)
 })
 
-test_that("If x is a list with a `$` element, return `$` when use_label = TRUE. Otherwise, return the other one", {
+test_that("If x is a list with a `$` element, return `$` when .use_label = TRUE. Otherwise, return the other one", {
   expect_equal(try_dollar(list("$" = 1, "@id" = 111)), 1)
-  expect_equal(try_dollar(list("$" = 1, "@id" = 111), use_label = FALSE), 111)
+  expect_equal(try_dollar(list("$" = 1, "@id" = 111), .use_label = FALSE), 111)
 })

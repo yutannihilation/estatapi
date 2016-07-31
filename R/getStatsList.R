@@ -4,7 +4,7 @@
 #'
 #' @param appId Application ID
 #' @param searchWord Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).
-#' @param use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
+#' @param .use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
 #'        (default: \code{TRUE})
 #' @param surveyYears Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}
 #' @param openYears Year and month when the survey result was opened. The format is the same as \code{surveyYears}
@@ -33,7 +33,7 @@
 #' )
 #' }
 #' @export
-estat_getStatsList <- function(appId, searchWord, use_label = TRUE,
+estat_getStatsList <- function(appId, searchWord, .use_label = TRUE,
                                surveyYears = NULL,
                                openYears = NULL,
                                statsField = NULL,
@@ -56,6 +56,6 @@ estat_getStatsList <- function(appId, searchWord, use_label = TRUE,
                  ...)
 
   j$GET_STATS_LIST$DATALIST_INF$TABLE_INF %>%
-    purrr::map(as_flattened_character, use_label = use_label) %>%
+    purrr::map(as_flattened_character, .use_label = .use_label) %>%
     dplyr::bind_rows()
 }

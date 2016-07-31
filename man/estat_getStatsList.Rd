@@ -4,7 +4,7 @@
 \alias{estat_getStatsList}
 \title{getStatsList API}
 \usage{
-estat_getStatsList(appId, searchWord, use_label = TRUE, surveyYears = NULL,
+estat_getStatsList(appId, searchWord, .use_label = TRUE, surveyYears = NULL,
   openYears = NULL, statsField = NULL, statsCode = NULL,
   searchKind = NULL, startPosition = NULL, limit = NULL,
   updatedDate = NULL, ...)
@@ -14,7 +14,7 @@ estat_getStatsList(appId, searchWord, use_label = TRUE, surveyYears = NULL,
 
 \item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).}
 
-\item{use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
+\item{.use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
 (default: \code{TRUE})}
 
 \item{surveyYears}{Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}}
