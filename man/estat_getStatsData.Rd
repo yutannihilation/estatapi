@@ -6,10 +6,10 @@
 \title{getStatsData API}
 \usage{
 estat_getStatsData(appId, statsDataId, startPosition = NULL, limit = NULL,
-  .aquire_all = TRUE, ...)
+  .fetch_all = TRUE, ...)
 
 estat_getSimpleStatsData(appId, statsDataId, startPosition = NULL,
-  limit = NULL, .aquire_all = TRUE, ...)
+  limit = NULL, .fetch_all = TRUE, ...)
 }
 \arguments{
 \item{appId}{application ID}
@@ -20,7 +20,7 @@ estat_getSimpleStatsData(appId, statsDataId, startPosition = NULL,
 
 \item{limit}{Integer. Max number of records to get.}
 
-\item{.aquire_all}{Whether to aquire all records when the number of records
+\item{.fetch_all}{Whether to fetch all records when the number of records
 is larger than 100,000.}
 
 \item{...}{Other parameters like \code{lvCat01} and \code{cdCat01}.
@@ -64,17 +64,38 @@ For every detailed information, please visit the URL in See Also.
 }
 \examples{
 \dontrun{
+# fetch all data, which may take time
+estat_getStatsData(
+  appId = "XXXX",
+  statsDataId = "0003065345"
+)
+
+# fetch data up to 10 records
 estat_getStatsData(
   appId = "XXXX",
   statsDataId = "0003065345",
-  cdCat01 = c("008", "009", "010"),
-  limit = 3
+  limit = 10
 )
+
+# fetch data up to 100,000 records (max number of records available at once)
+estat_getStatsData(
+  appId = "XXXX",
+  statsDataId = "0003065345",
+  .fetch_all = FALSE
+)
+
+# fetch all data in the specifed category
+estat_getStatsData(
+  appId = "XXXX",
+  statsDataId = "0003065345",
+  cdCat01 = c("008", "009", "010")
+)
+
 }
 
 }
 \seealso{
-\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3}
-\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_4}
+\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_3}
+\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_4}
 }
 

@@ -23,7 +23,7 @@ estat_getMetaInfo(appId = "XXXX", statsDataId = "0003065345")
 
 }
 \seealso{
-\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2}
-\url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_3}
+\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_2}
+\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_3}
 }
 

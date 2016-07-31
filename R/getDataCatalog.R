@@ -23,8 +23,8 @@
 #' @param ... Other parameters.
 #'
 #' @seealso
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_6}
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_7}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_6}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_7}
 #'
 #' @examples
 #' \dontrun{

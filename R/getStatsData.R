@@ -6,14 +6,14 @@
 #' @param statsDataId ID of the statistical dataset
 #' @param startPosition Integer. The the first record to get.
 #' @param limit Integer. Max number of records to get.
-#' @param .aquire_all Whether to aquire all records when the number of records
+#' @param .fetch_all Whether to fetch all records when the number of records
 #'                    is larger than 100,000.
 #' @param ... Other parameters like \code{lvCat01} and \code{cdCat01}.
 #'    See \code{Other parameters} section for more details.
 #'
 #' @seealso
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3}
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual/#api_3_4}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_3}
+#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_4}
 #' @section Other parameters:
 #' For every detailed information, please visit the URL in See Also.
 #' \itemize{
@@ -48,28 +48,49 @@
 #'
 #' @examples
 #' \dontrun{
+#' # fetch all data, which may take time
+#' estat_getStatsData(
+#'   appId = "XXXX",
+#'   statsDataId = "0003065345"
+#' )
+#'
+#' # fetch data up to 10 records
 #' estat_getStatsData(
 #'   appId = "XXXX",
 #'   statsDataId = "0003065345",
-#'   cdCat01 = c("008", "009", "010"),
-#'   limit = 3
+#'   limit = 10
 #' )
+#'
+#' # fetch data up to 100,000 records (max number of records available at once)
+#' estat_getStatsData(
+#'   appId = "XXXX",
+#'   statsDataId = "0003065345",
+#'   .fetch_all = FALSE
+#' )
+#'
+#' # fetch all data in the specifed category
+#' estat_getStatsData(
+#'   appId = "XXXX",
+#'   statsDataId = "0003065345",
+#'   cdCat01 = c("008", "009", "010")
+#' )
+#'
 #' }
 #'
 #' @export
 estat_getStatsData <- function(appId, statsDataId,
                                startPosition = NULL,
                                limit = NULL,
-                               .aquire_all = TRUE,
+                               .fetch_all = TRUE,
                                ...)
 {
   result <- list()
 
   record_count <- estat_getStatsDataCount(appId, statsDataId, ...)
-  ranges <- calc_ranges(startPosition, limit, record_count, .aquire_all)
+  ranges <- calc_ranges(startPosition, limit, record_count, .fetch_all)
 
   for (i in seq_along(ranges$starts)) {
-    message(sprintf("Aquiring %.0f records from %.0f (Total %.0f records)...\n",
+    message(sprintf("Fetching %.0f records (%.0f / %.0f)\n",
                     ranges$limits[i], ranges$starts[i], record_count))
 
     result_text <- estat_api("rest/2.1/app/getSimpleStatsData",
@@ -103,7 +124,7 @@ estat_getSimpleStatsData <- estat_getStatsData
 calc_ranges <- function(startPosition,
                         limit,
                         record_count,
-                        .aquire_all,
+                        .fetch_all,
                         .max_records_at_once = 100000) {
   ranges <- list()
 
@@ -117,7 +138,7 @@ calc_ranges <- function(startPosition,
     endPosition <- min(startPosition + limit - 1, record_count)
   }
 
-  if (.aquire_all) {
+  if (.fetch_all) {
     ranges$starts <- seq(from = startPosition, to = endPosition, by = .max_records_at_once)
     ranges$limits <- rep(.max_records_at_once, length(ranges$starts))
     # treat a fraction
