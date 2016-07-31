@@ -1,9 +1,13 @@
 context("API with real request")
 
 wrap_api_func <- function(fun, ...) {
+  skip_on_travis()
+  skip_on_cran()
+
   if (!file.exists("../../.appId")) {
     skip("appId is not available")
   }
+
   appId <- readr::read_lines("../../.appId")
   purrr::partial(fun, appId = appId)
 }
