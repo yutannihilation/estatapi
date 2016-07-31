@@ -1,0 +1,139 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うためのRパッケージ
+==========================
+[![Travis-CI Build Status](https://travis-ci.org/yutannihilation/estatapi.svg?branch=master)](https://travis-ci.org/yutannihilation/estatapi)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/yutannihilation/estatapi?branch=master&svg=true)](https://ci.appveyor.com/project/yutannihilation/estatapi)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
+
+_English version of README is [here](https://github.com/yutannihilation/estatapi/blob/master/README.en.md)_
+
+## e-Stat APIとは
+
+e-Statは日本の統計情報が集まっているポータルサイトです。e-StatにはAPIが用意されていて、[ウェブサイト](http://www.e-stat.go.jp/api/)上でアカウントを登録すると使えるようになります。
+
+**このサービスは、政府統計総合窓口(e-Stat)のAPI機能を使用していますが、サービスの内容は国によって保証されたものではありません。**
+
+## 事前準備
+
+[利用ガイド](http://www.e-stat.go.jp/api/api-guide/)に従ってアプリケーションIDを取得してください。APIにアクセスする際は、`appId`というパラメータに取得したアプリケーションIDを指定します。
+
+## インストール
+
+estatapiはCRAN上に公開されているパッケージなので、通常通りインストールできます。
+
+```{r, eval=FALSE}
+install.packages("estatapi")
+```
+
+開発版をインストールするには`devtools::install_github()`を使ってください。
+
+```{r, eval=FALSE}
+devtools::install_github("yutannihilation/estatapi")
+```
+
+## 使い方
+
+現在、このパッケージではバージョン2.0のうち4つをサポートしています。各APIの詳しい解説やパラメータの指定の仕方、返ってくる結果の意味は、公式ドキュメントを参照してください。
+
+* [統計表情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_1): 提供されている統計表を検索します。
+* [メタ情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_2): 統計データのメタ情報を取得します。
+* [統計データ取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_3): 統計データを取得します。 
+* [データカタログ情報取得](http://www.e-stat.go.jp/api/e-stat-manual/#api_2_6): 統計表ファイル（Excel、CSV、PDF）および統計データベースの情報を取得します。
+
+### 統計表情報取得（`estat_getStatsList()`）
+
+提供されている統計表を検索します。この関数は、結果を`tbl_df`（dplyrの`data.frame`。`data.frame`とほぼ同じように扱える）として返します。
+
+例えば、「チョコレート」というキーワードを含む統計を検索するときは`searchWord`という引数にキーワードを指定して、以下のようにします。
+
+```{r, eval=FALSE}
+appId <- "XXXXXXXXX"
+```
+
+```{r, echo=FALSE,message=FALSE}
+library(dplyr)
+appId <- readr::read_lines(".appId")
+```
+
+```{r}
+library(estatapi)
+
+estat_getStatsList(appId = appId, searchWord = "チョコレート")
+```
+
+ここで、`STAT_NAME`や`GOV_ORG`は人間が読みやすい形式のラベルになっていますが、
+プログラム中で扱う場合はコードのままの方が都合がいいこともあります。そのときは`.use_label = FALSE`を指定してください。
+
+```{r}
+estat_getStatsList(appId = appId, searchWord = "チョコレート", .use_label = FALSE)
+```
+
+### メタ情報取得（`estat_getMetaInfo()`）
+
+統計データのメタ情報を取得します。この関数は、結果を`list`として返します。`list`の各要素が、それぞれのデータ項目についてのメタ情報を含んだ`tbl_df`になっています。
+
+例えば、`0003103532`というIDの統計に関するメタ情報を取得するには、`statsDataId`という引数にIDを指定して、以下のようにします。
+
+```{r}
+meta_info <- estat_getMetaInfo(appId = appId, statsDataId = "0003103532")
+
+names(meta_info)
+
+meta_info$cat01
+```
+
+
+### 統計データ取得（`estat_getStatsData()`）
+
+統計データを取得します。この関数は、結果をメタ情報と紐づけて`tbl_df`として返します。
+
+必ず指定しなくてはいけないのは`appId`と`statsDataId`だけですが、それだけだとデータがかなり大きくなって取得に時間がかかります。`cdCat01`（分類事項01）などを指定して必要な項目だけに絞ることをおすすめします。他に絞り込みに指定できるパラメータについては公式ドキュメントを参照してください。
+
+```{r}
+estat_getStatsData(
+  appId = appId,
+  statsDataId = "0003103532",
+  cdCat01 = c("010800130","010800140")
+)
+```
+
+`limit`で取得する最大のレコード数を、`startPosition`で取得を始めるレコードの位置を指定することもできます。とりあえず少しだけ抜き出して見たい場合や、少しずつデータを取ってきたい場合にはこれらのパラメータが便利です。
+
+```{r}
+estat_getStatsData(
+  appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
+  limit = 3
+)
+
+estat_getStatsData(
+  appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
+  startPosition = 101,
+  limit = 3
+)
+```
+
+### データカタログ情報取得（`estat_getDataCatalog()`）
+
+統計表ファイル（Excel、CSV、PDF）および統計データベースの情報を取得できます。
+
+このAPIはファイルのURLを返すだけなので、そのままRで処理することは難しいかもしれません。
+
+```{r}
+catalog1 <- estat_getDataCatalog(appId = appId, searchWord = "チョコレート", dataType = c("PDF", "XLS"))
+
+catalog1[1, c("@id", "STAT_NAME", "TABLE_NAME", "SURVEY_DATE", "TABLE_SUB_CATEGORY1", "DATASET_NAME", "NAME", "LANDING_PAGE", "URL", "FORMAT")] %>%
+  glimpse
+```

@@ -6,3 +6,5 @@
 ^cran-comments\.md$
 ^appveyor\.yml$
 ^\.appId$
+^README\.Rmd$
+^README-.*\.png$
