@@ -65,6 +65,11 @@ test_that("estat_getMetaInfo processes the API response as expected", {
 })
 
 test_that("estat_getStatsData processes the API response as expected", {
+  # The result contains non-UTF-8 characters, so we need to do this
+  # in order to treat different encodings on various platforms
+  result <- readRDS("result_getStatsData.rds")
+  names(result) <- iconv(names(result), from = "CP932")
+
   with_mock(
     `estatapi:::estat_getStatsDataCount` = function(...) 40014,
     `httr::GET` = function(...)
@@ -78,7 +83,7 @@ test_that("estat_getStatsData processes the API response as expected", {
         cdCat01 = c("008", "009", "010"),
         limit = 3
       ),
-      readRDS("result_getStatsData.rds")
+
     )
   )
 })

@@ -1,7 +1,6 @@
 context("API with real request")
 
 wrap_api_func <- function(fun, ...) {
-  skip_on_travis()
   skip_on_cran()
 
   if (!file.exists("../../.appId")) {
