@@ -83,7 +83,7 @@ test_that("estat_getStatsData processes the API response as expected", {
         cdCat01 = c("008", "009", "010"),
         limit = 3
       ),
-
+      result
     )
   )
 })
