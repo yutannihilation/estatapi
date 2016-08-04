@@ -1,0 +1,134 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+e-Stat API for R
+==========================
+[![Travis-CI Build Status](https://travis-ci.org/yutannihilation/estatapi.svg?branch=master)](https://travis-ci.org/yutannihilation/estatapi)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/yutannihilation/estatapi?branch=master&svg=true)](https://ci.appveyor.com/project/yutannihilation/estatapi)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
+
+## e-Stat API
+
+e-Stat is a service to get Statistics of Japan, which is provided by Japanese Government. See http://www.e-stat.go.jp/api/.
+
+**The contents of e-Stat is not garanteed by Japanese Government**
+
+## Requirement
+
+First, You need to register at e-Stat website to obtain `appId`.
+
+## Installation
+
+```{r, eval=FALSE}
+# Stable version
+install.packages("estatapi")
+
+# Development version
+devtools::install_github("yutannihilation/estatapi")
+```
+
+## Usage
+
+Currently, this package supports four methods of API v2. For the details about the query params, please read the official documentation at http://www.e-stat.go.jp/api/e-stat-manual/
+
+### estat_getStatsList
+
+Get list of statistics matched with the provided query.
+
+This function returns result as a `tbl_df`.
+
+```{r, eval=FALSE}
+appId <- "XXXXXXXXX"
+```
+
+```{r, echo=FALSE,message=FALSE}
+library(dplyr)
+
+appId <- readr::read_lines(".appId")
+```
+
+By default, the language of the datasets is Japanese.
+
+```{r}
+library(estatapi)
+
+estat_getStatsList(appId = appId, searchWord = "chocolate")
+```
+
+You can add `lang = "E"` to search for English datasets. But be careful, not all datasets are translated into English and the translation may be wrong sometimes...
+
+```{r}
+estat_getStatsList(appId = appId, lang = "E", searchWord = "chocolate")
+```
+
+### estat_getMetaInfo
+
+Get meta-information about the data.
+
+This function returns a list of `tbl_df`. Each `tbl_df` contains the meta-info for the correspondent column.
+
+```{r}
+meta_info <- estat_getMetaInfo(appId = appId, lang = "E", statsDataId = "0003036792")
+
+names(meta_info)
+
+meta_info$cat01
+```
+
+
+### estat_getStatsData
+
+Get statistics.
+
+Though only `appId` and `statsDataId` are required, I recommend you to use additional condition to save time.
+
+```{r}
+estat_getStatsData(
+  appId = appId,
+  lang = "E",
+  statsDataId = "0003036792",
+  cdCat01 = c("0005","1021")
+)
+```
+
+You may feel convenient with `limit` and `startPosition` to get data partially.
+
+```{r}
+d1 <- estat_getStatsData(
+        appId = appId, lang = "E", statsDataId = "0003036792", cdCat01 = c("0005","1021"),
+        limit = 
+      )
+
+d2 <- estat_getStatsData(
+        appId = appId, lang = "E", statsDataId = "0003036792", cdCat01 = c("0005","1021"),
+        startPosition=101,
+        limit = 3
+      )
+#> There are more records; please rerun with startPosition=201
+
+d <- bind_rows(d1, d2)
+```
+
+### getDataCatalog
+
+Find statistical dataset files (Excel, CSV and PDF) and databases.
+
+Note that this API returns only URL of the file or database and the data itself is not accessible via e-Stat API.
+You can download the file from the given URL, but it may be difficult to process the data by R.
+
+```{r}
+catalog1 <- estat_getDataCatalog(appId = appId, lang = "E", searchWord = "population", dataType = c("PDF", "XLS"))
+
+catalog1[1, c("@id", "STAT_NAME", "TABLE_NAME", "SURVEY_DATE", "TABLE_SUB_CATEGORY1", "DATASET_NAME", "NAME", "LANDING_PAGE", "URL", "FORMAT")] %>%
+  glimpse
+```

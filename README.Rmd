@@ -11,7 +11,6 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 ```
-
 estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うためのRパッケージ
 ==========================
 [![Travis-CI Build Status](https://travis-ci.org/yutannihilation/estatapi.svg?branch=master)](https://travis-ci.org/yutannihilation/estatapi)
