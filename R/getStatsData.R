@@ -87,7 +87,7 @@ estat_getStatsData <- function(appId, statsDataId,
                                ...) {
   lang <- match.arg(lang)
 
-  meta_info <- estat_getMetaInfo(appId, statsDataId)
+  meta_info <- estat_getMetaInfo(appId, statsDataId, lang = lang)
   total_record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, ...)
   ranges <- calc_ranges(startPosition, limit, total_record_count, .fetch_all)
 
