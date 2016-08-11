@@ -144,21 +144,21 @@ estat_getStatsData(
 )
 #> Fetching record 1-13184... (total: 13184 records)
 #> # A tibble: 13,184 x 12
-#>    tab_code cat01_code cat02_code area_code  time_code  unit value
-#>       <chr>      <chr>      <chr>     <chr>      <chr> <chr> <dbl>
-#> 1        01  010800130         03     00000 2016000606    円   267
-#> 2        01  010800130         03     00000 2016000505    円   346
-#> 3        01  010800130         03     00000 2016000404    円   403
-#> 4        01  010800130         03     00000 2016000303    円   580
-#> 5        01  010800130         03     00000 2016000202    円  1376
-#> 6        01  010800130         03     00000 2016000101    円   665
-#> 7        01  010800130         03     00000 2015001212    円   585
-#> 8        01  010800130         03     00000 2015001111    円   451
-#> 9        01  010800130         03     00000 2015001010    円   413
-#> 10       01  010800130         03     00000 2015000909    円   326
-#> # ... with 13,174 more rows, and 5 more variables: 表章項目 <chr>,
-#> #   品目分類（27年改定） <chr>, 世帯区分 <chr>, 地域区分 <chr>,
-#> #   時間軸（月次） <chr>
+#>    tab_code 表章項目 cat01_code 品目分類（27年改定） cat02_code
+#>       <chr>    <chr>      <chr>                <chr>      <chr>
+#> 1        01     金額  010800130     352 チョコレート         03
+#> 2        01     金額  010800130     352 チョコレート         03
+#> 3        01     金額  010800130     352 チョコレート         03
+#> 4        01     金額  010800130     352 チョコレート         03
+#> 5        01     金額  010800130     352 チョコレート         03
+#> 6        01     金額  010800130     352 チョコレート         03
+#> 7        01     金額  010800130     352 チョコレート         03
+#> 8        01     金額  010800130     352 チョコレート         03
+#> 9        01     金額  010800130     352 チョコレート         03
+#> 10       01     金額  010800130     352 チョコレート         03
+#> # ... with 13,174 more rows, and 7 more variables: 世帯区分 <chr>,
+#> #   area_code <chr>, 地域区分 <chr>, time_code <chr>,
+#> #   時間軸（月次） <chr>, unit <chr>, value <dbl>
 ```
 
 `limit`で取得する最大のレコード数を、`startPosition`で取得を始めるレコードの位置を指定することもできます。とりあえず少しだけ抜き出して見たい場合や、少しずつデータを取ってきたい場合にはこれらのパラメータが便利です。
@@ -170,13 +170,14 @@ estat_getStatsData(
 )
 #> Fetching record 1-3... (total: 13184 records)
 #> # A tibble: 3 x 12
-#>   tab_code cat01_code cat02_code area_code  time_code  unit value 表章項目
-#>      <chr>      <chr>      <chr>     <chr>      <chr> <chr> <dbl>    <chr>
-#> 1       01  010800130         03     00000 2016000606    円   267     金額
-#> 2       01  010800130         03     00000 2016000505    円   346     金額
-#> 3       01  010800130         03     00000 2016000404    円   403     金額
-#> # ... with 4 more variables: 品目分類（27年改定） <chr>, 世帯区分 <chr>,
-#> #   地域区分 <chr>, 時間軸（月次） <chr>
+#>   tab_code 表章項目 cat01_code 品目分類（27年改定） cat02_code
+#>      <chr>    <chr>      <chr>                <chr>      <chr>
+#> 1       01     金額  010800130     352 チョコレート         03
+#> 2       01     金額  010800130     352 チョコレート         03
+#> 3       01     金額  010800130     352 チョコレート         03
+#> # ... with 7 more variables: 世帯区分 <chr>, area_code <chr>,
+#> #   地域区分 <chr>, time_code <chr>, 時間軸（月次） <chr>, unit <chr>,
+#> #   value <dbl>
 
 estat_getStatsData(
   appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
@@ -185,13 +186,14 @@ estat_getStatsData(
 )
 #> Fetching record 101-103... (total: 13184 records)
 #> # A tibble: 3 x 12
-#>   tab_code cat01_code cat02_code area_code  time_code  unit value 表章項目
-#>      <chr>      <chr>      <chr>     <chr>      <chr> <chr> <dbl>    <chr>
-#> 1       01  010800130         03     00000 2008000202    円  1173     金額
-#> 2       01  010800130         03     00000 2008000101    円   433     金額
-#> 3       01  010800130         03     00000 2007001212    円   449     金額
-#> # ... with 4 more variables: 品目分類（27年改定） <chr>, 世帯区分 <chr>,
-#> #   地域区分 <chr>, 時間軸（月次） <chr>
+#>   tab_code 表章項目 cat01_code 品目分類（27年改定） cat02_code
+#>      <chr>    <chr>      <chr>                <chr>      <chr>
+#> 1       01     金額  010800130     352 チョコレート         03
+#> 2       01     金額  010800130     352 チョコレート         03
+#> 3       01     金額  010800130     352 チョコレート         03
+#> # ... with 7 more variables: 世帯区分 <chr>, area_code <chr>,
+#> #   地域区分 <chr>, time_code <chr>, 時間軸（月次） <chr>, unit <chr>,
+#> #   value <dbl>
 ```
 
 ### データカタログ情報取得（`estat_getDataCatalog()`）

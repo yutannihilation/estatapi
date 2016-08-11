@@ -119,20 +119,20 @@ estat_getStatsData(
 )
 #> Fetching record 1-8102... (total: 8102 records)
 #> # A tibble: 8,102 x 10
-#>    tab_code cat01_code area_code  time_code value  unit 表章項目
-#>       <chr>      <chr>     <chr>      <chr> <dbl> <chr>    <chr>
-#> 1         1       0005     13A01 2016000707 102.8  <NA>     指数
-#> 2         1       0005     13A01 2016000606 102.0  <NA>     指数
-#> 3         1       0005     13A01 2016000505 103.1  <NA>     指数
-#> 4         1       0005     13A01 2016000404 102.7  <NA>     指数
-#> 5         1       0005     13A01 2016000303 102.4  <NA>     指数
-#> 6         1       0005     13A01 2016000202 102.9  <NA>     指数
-#> 7         1       0005     13A01 2016000101 102.1  <NA>     指数
-#> 8         1       0005     13A01 2015100000 102.1  <NA>     指数
-#> 9         1       0005     13A01 2015001212 103.1  <NA>     指数
-#> 10        1       0005     13A01 2015001111 103.0  <NA>     指数
-#> # ... with 8,092 more rows, and 3 more variables: 平成22年基準品目 <chr>,
-#> #   地域（H22基準） <chr>, 時間軸（年・月） <chr>
+#>    tab_code Tabulated variable cat01_code Items area_code    AREA
+#>       <chr>              <chr>      <chr> <chr>     <chr>   <chr>
+#> 1         1              Index       0005 Bread     13A01 Ku-area
+#> 2         1              Index       0005 Bread     13A01 Ku-area
+#> 3         1              Index       0005 Bread     13A01 Ku-area
+#> 4         1              Index       0005 Bread     13A01 Ku-area
+#> 5         1              Index       0005 Bread     13A01 Ku-area
+#> 6         1              Index       0005 Bread     13A01 Ku-area
+#> 7         1              Index       0005 Bread     13A01 Ku-area
+#> 8         1              Index       0005 Bread     13A01 Ku-area
+#> 9         1              Index       0005 Bread     13A01 Ku-area
+#> 10        1              Index       0005 Bread     13A01 Ku-area
+#> # ... with 8,092 more rows, and 4 more variables: time_code <chr>,
+#> #   Time <chr>, value <dbl>, unit <chr>
 ```
 
 You may feel convenient with `limit` and `startPosition` to get data partially.
