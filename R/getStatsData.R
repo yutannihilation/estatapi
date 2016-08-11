@@ -84,8 +84,7 @@ estat_getStatsData <- function(appId, statsDataId,
                                limit = NULL,
                                lang = c("J", "E"),
                                .fetch_all = TRUE,
-                               ...)
-{
+                               ...) {
   lang <- match.arg(lang)
 
   meta_info <- estat_getMetaInfo(appId, statsDataId)
@@ -134,8 +133,7 @@ estat_getStatsData <- function(appId, statsDataId,
 }
 
 
-estat_getStatsDataCount <- function(appId, statsDataId, ...)
-{
+estat_getStatsDataCount <- function(appId, statsDataId, ...) {
   j <- estat_api("rest/2.1/app/json/getStatsData",
                  appId = appId,
                  statsDataId = statsDataId,

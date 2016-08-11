@@ -11,8 +11,7 @@ ESTAT_API_URL <- "http://api.e-stat.go.jp/"
 #' @param ... other parameters
 #'
 #' @export
-estat_api <- function(path, appId, ...)
-{
+estat_api <- function(path, appId, ...) {
   # convert params like cdCat01=c("001","002") to cdCat01="001,002"
   query <- flatten_query(list(appId = appId, ...))
 
@@ -27,8 +26,8 @@ estat_api <- function(path, appId, ...)
 
   media <- httr::parse_media(res$headers$`content-type`)
 
-  # A result of getMetaInfo, getDataCatalog and getStatsList is parsed as JSON.
-  # That of getSimpleStatsData is parsed as CSV.
+  # A result of gettStatsData, getMetaInfo, getDataCatalog and getStatsList is JSON.
+  # That of getSimpleStatsData is CSV (but the media type is "text/plain").
   if (media$type == "application" && media$subtype == "json") {
     parse_result_json(res)
   } else if (media$type == "text" && media$subtype == "plain") {
@@ -38,8 +37,7 @@ estat_api <- function(path, appId, ...)
   }
 }
 
-flatten_query <- function(x)
-{
+flatten_query <- function(x) {
   x <- x %>%
     purrr::compact() %>%
     purrr::map(~ paste0(as.character(.), collapse = ","))
@@ -48,8 +46,7 @@ flatten_query <- function(x)
   x[unique(names(x))]
 }
 
-as_flattened_character <- function(x, .use_label = TRUE)
-{
+as_flattened_character <- function(x, .use_label = TRUE) {
   x %>%
     purrr::map(try_dollar, .use_label = .use_label) %>%
     purrr::flatten() %>%
@@ -72,8 +69,7 @@ try_dollar <- function(x, .use_label = TRUE) {
   }
 }
 
-get_class_info <- function(class_obj)
-{
+get_class_info <- function(class_obj) {
   meta_ids <- purrr::map_chr(class_obj, "@id")
   meta_names <- purrr::map_chr(class_obj, "@name")
 
@@ -83,8 +79,7 @@ get_class_info <- function(class_obj)
   purrr::update_list(class_info, .names = dplyr::data_frame(id = meta_ids, name = meta_names))
 }
 
-merge_class_info <- function(value_df, class_info, name)
-{
+merge_class_info <- function(value_df, class_info, name) {
   info <- class_info[[name]] %>%
     dplyr::select_("`@code`", "`@name`")
 
