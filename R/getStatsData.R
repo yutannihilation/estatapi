@@ -129,7 +129,19 @@ estat_getStatsData <- function(appId, statsDataId,
                                  nm = meta_df[["@code"]])
     result_df[, meta$name] <- meta_vec[result_df[[paste0(meta$id, "_code")]]]
   }
-  result_df
+
+  # FIXME: This is a temporal workaround until getSimpleStatsData API is ready.
+  # reorder result as the same order as getSimpleStatsData
+  colnames_all <- colnames(result_df)
+  colnames_meta <- meta_info$.names$name
+  colnames_orig <- dplyr::setdiff(colnames_all, colnames_meta)
+
+  suppressWarnings({
+    sorted_colnames <- unlist(purrr::transpose(
+        list(colnames_orig, colnames_meta)
+      ))
+  })
+  result_df[, sorted_colnames]
 }
 
 
