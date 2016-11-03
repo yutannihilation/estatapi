@@ -56,11 +56,10 @@ appId <- "XXXXXXXXX"
 
 ``` r
 library(estatapi)
-#> このサービスは、政府統計総合窓口(e-Stat)のAPI機能を使用していますが、サービスの内容は国によって保証されたものではありません。
 
 estat_getStatsList(appId = appId, searchWord = "チョコレート")
-#> # A tibble: 189 x 13
-#>           @id        STAT_NAME    GOV_ORG
+#> # A tibble: 191 × 13
+#>         `@id`        STAT_NAME    GOV_ORG
 #>         <chr>            <chr>      <chr>
 #> 1  0000100087 全国物価統計調査     総務省
 #> 2  0000100104 全国物価統計調査     総務省
@@ -72,7 +71,7 @@ estat_getStatsList(appId = appId, searchWord = "チョコレート")
 #> 8  0000100130 全国物価統計調査     総務省
 #> 9  0003126524     工業統計調査 経済産業省
 #> 10 0003143784     工業統計調査 経済産業省
-#> # ... with 179 more rows, and 10 more variables: STATISTICS_NAME <chr>,
+#> # ... with 181 more rows, and 10 more variables: STATISTICS_NAME <chr>,
 #> #   TITLE <chr>, CYCLE <chr>, SURVEY_DATE <chr>, OPEN_DATE <chr>,
 #> #   SMALL_AREA <chr>, MAIN_CATEGORY <chr>, SUB_CATEGORY <chr>,
 #> #   OVERALL_TOTAL_NUMBER <chr>, UPDATED_DATE <chr>
@@ -82,8 +81,8 @@ estat_getStatsList(appId = appId, searchWord = "チョコレート")
 
 ``` r
 estat_getStatsList(appId = appId, searchWord = "チョコレート", .use_label = FALSE)
-#> # A tibble: 189 x 13
-#>           @id STAT_NAME GOV_ORG
+#> # A tibble: 191 × 13
+#>         `@id` STAT_NAME GOV_ORG
 #>         <chr>     <chr>   <chr>
 #> 1  0000100087  00200572   00200
 #> 2  0000100104  00200572   00200
@@ -95,7 +94,7 @@ estat_getStatsList(appId = appId, searchWord = "チョコレート", .use_label 
 #> 8  0000100130  00200572   00200
 #> 9  0003126524  00550010   00550
 #> 10 0003143784  00550010   00550
-#> # ... with 179 more rows, and 10 more variables: STATISTICS_NAME <chr>,
+#> # ... with 181 more rows, and 10 more variables: STATISTICS_NAME <chr>,
 #> #   TITLE <chr>, CYCLE <chr>, SURVEY_DATE <chr>, OPEN_DATE <chr>,
 #> #   SMALL_AREA <chr>, MAIN_CATEGORY <chr>, SUB_CATEGORY <chr>,
 #> #   OVERALL_TOTAL_NUMBER <chr>, UPDATED_DATE <chr>
@@ -114,20 +113,20 @@ names(meta_info)
 #> [1] "tab"    "cat01"  "cat02"  "area"   "time"   ".names"
 
 meta_info$cat01
-#> # A tibble: 703 x 5
-#>        @code                              @name @level    @unit
-#>        <chr>                              <chr>  <chr>    <chr>
-#> 1  000100000           世帯数分布（抽出率調整）      1 一万分比
-#> 2  000200000                         集計世帯数      1     世帯
-#> 3  000300000                           世帯人員      1       人
-#> 4  000400000                       18歳未満人員      2       人
-#> 5  000500000                       65歳以上人員      2       人
-#> 6  000600000                 65歳以上無職者人員      3       人
-#> 7  000700000                           有業人員      1       人
-#> 8  000800000                       世帯主の年齢      1       歳
-#> 9  000900000                             持家率      1       ％
-#> 10 001000000 家賃・地代を支払っている世帯の割合      1       ％
-#> # ... with 693 more rows, and 1 more variables: @parentCode <chr>
+#> # A tibble: 703 × 5
+#>      `@code`                            `@name` `@level`  `@unit`
+#>        <chr>                              <chr>    <chr>    <chr>
+#> 1  000100000           世帯数分布（抽出率調整）        1 一万分比
+#> 2  000200000                         集計世帯数        1     世帯
+#> 3  000300000                           世帯人員        1       人
+#> 4  000400000                       18歳未満人員        2       人
+#> 5  000500000                       65歳以上人員        2       人
+#> 6  000600000                 65歳以上無職者人員        3       人
+#> 7  000700000                           有業人員        1       人
+#> 8  000800000                       世帯主の年齢        1       歳
+#> 9  000900000                             持家率        1       ％
+#> 10 001000000 家賃・地代を支払っている世帯の割合        1       ％
+#> # ... with 693 more rows, and 1 more variables: `@parentCode` <chr>
 ```
 
 ### 統計データ取得（`estat_getStatsData()`）
@@ -142,23 +141,23 @@ estat_getStatsData(
   statsDataId = "0003103532",
   cdCat01 = c("010800130","010800140")
 )
-#> Fetching record 1-13184... (total: 13184 records)
-#> # A tibble: 13,184 x 12
-#>    tab_code 表章項目 cat01_code 品目分類（27年改定） cat02_code
-#>       <chr>    <chr>      <chr>                <chr>      <chr>
-#> 1        01     金額  010800130     352 チョコレート         03
-#> 2        01     金額  010800130     352 チョコレート         03
-#> 3        01     金額  010800130     352 チョコレート         03
-#> 4        01     金額  010800130     352 チョコレート         03
-#> 5        01     金額  010800130     352 チョコレート         03
-#> 6        01     金額  010800130     352 チョコレート         03
-#> 7        01     金額  010800130     352 チョコレート         03
-#> 8        01     金額  010800130     352 チョコレート         03
-#> 9        01     金額  010800130     352 チョコレート         03
-#> 10       01     金額  010800130     352 チョコレート         03
-#> # ... with 13,174 more rows, and 7 more variables: 世帯区分 <chr>,
+#> Fetching record 1-13520... (total: 13520 records)
+#> # A tibble: 13,520 × 12
+#>    tab_code 表章項目 cat01_code `品目分類（27年改定）` cat02_code
+#>       <chr>    <chr>      <chr>                  <chr>      <chr>
+#> 1        01     金額  010800130       352 チョコレート         03
+#> 2        01     金額  010800130       352 チョコレート         03
+#> 3        01     金額  010800130       352 チョコレート         03
+#> 4        01     金額  010800130       352 チョコレート         03
+#> 5        01     金額  010800130       352 チョコレート         03
+#> 6        01     金額  010800130       352 チョコレート         03
+#> 7        01     金額  010800130       352 チョコレート         03
+#> 8        01     金額  010800130       352 チョコレート         03
+#> 9        01     金額  010800130       352 チョコレート         03
+#> 10       01     金額  010800130       352 チョコレート         03
+#> # ... with 13,510 more rows, and 7 more variables: 世帯区分 <chr>,
 #> #   area_code <chr>, 地域区分 <chr>, time_code <chr>,
-#> #   時間軸（月次） <chr>, unit <chr>, value <dbl>
+#> #   `時間軸（月次）` <chr>, unit <chr>, value <dbl>
 ```
 
 `limit`で取得する最大のレコード数を、`startPosition`で取得を始めるレコードの位置を指定することもできます。とりあえず少しだけ抜き出して見たい場合や、少しずつデータを取ってきたい場合にはこれらのパラメータが便利です。
@@ -168,15 +167,15 @@ estat_getStatsData(
   appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
   limit = 3
 )
-#> Fetching record 1-3... (total: 13184 records)
-#> # A tibble: 3 x 12
-#>   tab_code 表章項目 cat01_code 品目分類（27年改定） cat02_code
-#>      <chr>    <chr>      <chr>                <chr>      <chr>
-#> 1       01     金額  010800130     352 チョコレート         03
-#> 2       01     金額  010800130     352 チョコレート         03
-#> 3       01     金額  010800130     352 チョコレート         03
+#> Fetching record 1-3... (total: 13520 records)
+#> # A tibble: 3 × 12
+#>   tab_code 表章項目 cat01_code `品目分類（27年改定）` cat02_code
+#>      <chr>    <chr>      <chr>                  <chr>      <chr>
+#> 1       01     金額  010800130       352 チョコレート         03
+#> 2       01     金額  010800130       352 チョコレート         03
+#> 3       01     金額  010800130       352 チョコレート         03
 #> # ... with 7 more variables: 世帯区分 <chr>, area_code <chr>,
-#> #   地域区分 <chr>, time_code <chr>, 時間軸（月次） <chr>, unit <chr>,
+#> #   地域区分 <chr>, time_code <chr>, `時間軸（月次）` <chr>, unit <chr>,
 #> #   value <dbl>
 
 estat_getStatsData(
@@ -184,15 +183,15 @@ estat_getStatsData(
   startPosition = 101,
   limit = 3
 )
-#> Fetching record 101-103... (total: 13184 records)
-#> # A tibble: 3 x 12
-#>   tab_code 表章項目 cat01_code 品目分類（27年改定） cat02_code
-#>      <chr>    <chr>      <chr>                <chr>      <chr>
-#> 1       01     金額  010800130     352 チョコレート         03
-#> 2       01     金額  010800130     352 チョコレート         03
-#> 3       01     金額  010800130     352 チョコレート         03
+#> Fetching record 101-103... (total: 13520 records)
+#> # A tibble: 3 × 12
+#>   tab_code 表章項目 cat01_code `品目分類（27年改定）` cat02_code
+#>      <chr>    <chr>      <chr>                  <chr>      <chr>
+#> 1       01     金額  010800130       352 チョコレート         03
+#> 2       01     金額  010800130       352 チョコレート         03
+#> 3       01     金額  010800130       352 チョコレート         03
 #> # ... with 7 more variables: 世帯区分 <chr>, area_code <chr>,
-#> #   地域区分 <chr>, time_code <chr>, 時間軸（月次） <chr>, unit <chr>,
+#> #   地域区分 <chr>, time_code <chr>, `時間軸（月次）` <chr>, unit <chr>,
 #> #   value <dbl>
 ```
 
