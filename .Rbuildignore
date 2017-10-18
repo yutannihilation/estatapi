@@ -8,3 +8,4 @@
 ^\.appId$
 ^README(\.en)?\.Rmd$
 ^README-.*\.png$
+^docs$
