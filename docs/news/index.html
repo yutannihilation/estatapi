@@ -23,14 +23,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -49,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -81,23 +90,27 @@
     <div class="contents">
     <div id="estatapi-0-3-0" class="section level1">
 <h1 class="hasAnchor">
-<a href="#estatapi-0-3-0" class="anchor"> </a>estatapi 0.3.0</h1>
+<a href="#estatapi-0-3-0" class="anchor"></a>estatapi 0.3.0</h1>
 <div id="major-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"> </a>Major Changes</h2>
-<ul><li>
-<code><a href="../reference/estat_getStatsData.html">estat_getStatsData()</a></code> and <code><a href="../reference/estat_getStatsList.html">estat_getStatsList()</a></code> has been overhauled. Accordingly, each function returns the result with different colnames than before. IÅfm sorry, but this change was inevitable to fix bugs like <a href="https://github.com/yutannihilation/estatapi/issues/7">#7</a>Åc For the details, please see <a href="https://gist.github.com/yutannihilation/e89e3cab6212aa9a390c2c831310ddae">this gist</a>.</li>
+<a href="#major-changes" class="anchor"></a>Major Changes</h2>
+<ul>
+<li>
+<code><a href="../reference/estat_getStatsData.html">estat_getStatsData()</a></code> and <code><a href="../reference/estat_getStatsList.html">estat_getStatsList()</a></code> has been overhauled. Accordingly, each function returns the result with different colnames than before. I‚Äôm sorry, but this change was inevitable to fix bugs like <a href="https://github.com/yutannihilation/estatapi/issues/7">#7</a>‚Ä¶ For the details, please see <a href="https://gist.github.com/yutannihilation/e89e3cab6212aa9a390c2c831310ddae">this gist</a>.</li>
 <li>Treat most of parameters as formal arguments. Please be careful if you use unnamed arguments.</li>
 <li>Use e-Stat API version 2.1, which is released on Jul 14, 2016.</li>
 <li>
 <code><a href="../reference/estat_getStatsData.html">estat_getStatsData()</a></code> automatically repeats fetching records when the records are more than the number that can be fetched at one time (=100,000 records). You can stop this behaviour by specifying <code>limit</code> or <code>.fetch_all</code> argument.</li>
 <li>Add <code>getDataCatalog()</code>, which finds statistical dataset files (Excel, CSV and PDF) and databases.</li>
-</ul></div>
+</ul>
+</div>
 <div id="minor-changes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#minor-changes" class="anchor"> </a>Minor Changes</h2>
-<ul><li>Show license notice on startup.</li>
-</ul></div>
+<a href="#minor-changes" class="anchor"></a>Minor Changes</h2>
+<ul>
+<li>Show license notice on startup.</li>
+</ul>
+</div>
 </div>
     </div>
   </div>
