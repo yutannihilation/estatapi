@@ -76,7 +76,8 @@ get_class_info <- function(class_obj) {
   class_info <- purrr::map(class_obj, ~ dplyr::bind_rows(.$CLASS))
   names(class_info) <- meta_ids
 
-  purrr::update_list(class_info, .names = dplyr::data_frame(id = meta_ids, name = meta_names))
+  # TODO: why does `.names` need to be a tibble...?
+  purrr::update_list(class_info, .names = tibble::tibble(id = meta_ids, name = meta_names))
 }
 
 merge_class_info <- function(value_df, class_info, name) {

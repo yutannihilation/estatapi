@@ -187,7 +187,7 @@ calc_ranges <- function(startPosition,
     ranges$limits <- min(startPosition + .max_records_at_once - 1, endPosition)
   }
 
-  dplyr::as_data_frame(ranges)
+  tibble::tibble(!!!ranges)
 }
 
 # cdTab may be (1) NULL, (2) a vector of strings or (3) a string of numbers separated by ","
