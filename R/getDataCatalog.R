@@ -100,7 +100,7 @@ denormalize_data_catalog_inf <- function(inf, .use_label = TRUE) {
   resources_inf <- if(is.character(RESOURCE[[1]])) {
     RESOURCE %>%
       as_flattened_character(.use_label = .use_label) %>%
-      dplyr::as_data_frame()
+      tibble::as_tibble()
   } else {
     RESOURCE %>%
       purrr::map(as_flattened_character, .use_label = .use_label) %>%
