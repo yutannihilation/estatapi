@@ -4,10 +4,21 @@
 \alias{estat_getStatsList}
 \title{getStatsList API}
 \usage{
-estat_getStatsList(appId, searchWord, lang = c("J", "E"), .use_label = TRUE,
-  surveyYears = NULL, openYears = NULL, statsField = NULL,
-  statsCode = NULL, searchKind = NULL, startPosition = NULL,
-  limit = NULL, updatedDate = NULL, ...)
+estat_getStatsList(
+  appId,
+  searchWord,
+  lang = c("J", "E"),
+  .use_label = TRUE,
+  surveyYears = NULL,
+  openYears = NULL,
+  statsField = NULL,
+  statsCode = NULL,
+  searchKind = NULL,
+  startPosition = NULL,
+  limit = NULL,
+  updatedDate = NULL,
+  ...
+)
 }
 \arguments{
 \item{appId}{Application ID}
@@ -57,4 +68,3 @@ estat_getStatsList(
 \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_1}
 \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_2}
 }
-

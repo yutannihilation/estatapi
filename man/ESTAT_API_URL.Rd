@@ -4,7 +4,9 @@
 \name{ESTAT_API_URL}
 \alias{ESTAT_API_URL}
 \title{Util}
-\format{An object of class \code{character} of length 1.}
+\format{
+An object of class \code{character} of length 1.
+}
 \usage{
 ESTAT_API_URL
 }
@@ -12,4 +14,3 @@ ESTAT_API_URL
 Util
 }
 \keyword{datasets}
-

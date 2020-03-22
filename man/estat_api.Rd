@@ -16,4 +16,3 @@ estat_api(path, appId, ...)
 \description{
 Get Statistical Something From e-Stat API
 }
-

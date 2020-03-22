@@ -4,11 +4,23 @@
 \alias{estat_getDataCatalog}
 \title{getDataCatalog API}
 \usage{
-estat_getDataCatalog(appId, lang = c("J", "E"), .use_label = TRUE,
-  surveyYears = NULL, openYears = NULL, statsField = NULL,
-  statsCode = NULL, searchWord = NULL, dataType = NULL,
-  catalogId = NULL, resourceId = NULL, startPosition = NULL,
-  limit = NULL, updatedDate = NULL, ...)
+estat_getDataCatalog(
+  appId,
+  lang = c("J", "E"),
+  .use_label = TRUE,
+  surveyYears = NULL,
+  openYears = NULL,
+  statsField = NULL,
+  statsCode = NULL,
+  searchWord = NULL,
+  dataType = NULL,
+  catalogId = NULL,
+  resourceId = NULL,
+  startPosition = NULL,
+  limit = NULL,
+  updatedDate = NULL,
+  ...
+)
 }
 \arguments{
 \item{appId}{Application ID}
@@ -63,4 +75,3 @@ estat_getDataCatalog(
 \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_6}
 \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_7}
 }
-

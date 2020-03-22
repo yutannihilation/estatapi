@@ -4,8 +4,15 @@
 \alias{estat_getStatsData}
 \title{getStatsData API}
 \usage{
-estat_getStatsData(appId, statsDataId, startPosition = NULL, limit = NULL,
-  lang = c("J", "E"), .fetch_all = TRUE, ...)
+estat_getStatsData(
+  appId,
+  statsDataId,
+  startPosition = NULL,
+  limit = NULL,
+  lang = c("J", "E"),
+  .fetch_all = TRUE,
+  ...
+)
 }
 \arguments{
 \item{appId}{application ID}
@@ -60,6 +67,7 @@ For every detailed information, please visit the URL in See Also.
    The same way like above.
 }
 }
+
 \examples{
 \dontrun{
 # fetch all data, which may take time
@@ -96,4 +104,3 @@ estat_getStatsData(
 \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_3}
 \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_4}
 }
-
