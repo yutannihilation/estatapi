@@ -96,7 +96,6 @@ estat_getStatsData(
   statsDataId = "0003065345",
   cdCat01 = c("008", "009", "010")
 )
-
 }
 
 }
