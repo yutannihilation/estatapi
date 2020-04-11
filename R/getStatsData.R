@@ -2,50 +2,54 @@
 #'
 #' Get some statistical data via e-Stat API.
 #'
-#' @param appId application ID
-#' @param statsDataId ID of the statistical dataset
-#' @param startPosition Integer. The the first record to get.
-#' @param limit Integer. Max number of records to get.
-#' @param lang Language of data. \code{"J"}(Japanese) or \code{"E"}(English).
-#' @param .fetch_all Whether to fetch all records when the number of records
-#'                    is larger than 100,000.
-#' @param ... Other parameters like \code{lvCat01} and \code{cdCat01}.
-#'    See \code{Other parameters} section for more details.
-#'
-#' @seealso
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_3}
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_4}
-#' @section Other parameters:
-#' For every detailed information, please visit the URL in See Also.
+#' @param appId
+#'   Application ID.
+#' @param statsDataId
+#'   ID of the statistical dataset.
+#' @param startPosition
+#'   Index of the first record to get.
+#' @param limit
+#'   Max number of records to get.
+#' @param lang
+#'   Language of the data. `"J"`(Japanese) or `"E"`(English).
+#' @param .fetch_all
+#'   Whether to fetch all records when the number of records is larger than
+#'   100,000.
+#' @param ...
+#'   Other parameters.
 #' \itemize{
-#'  \item \code{lvTab}:
-#'    Level of the meta-information. The format can be \code{X} or \code{X-Y}, \code{-X} and \code{X-}.
-#'  \item \code{cdTab}:
-#'    Code(s) of the meta-infomation items to select. The format can be a character vector (\code{c("001", "002")}) or
-#'    a chraracter of values and commas (\code{"001,002"}).
-#'  \item \code{cdTabFrom}:
+#'  \item `lvTab`:
+#'    Level of the meta-information. The format can be `X` or `X-Y`, `-X` and `X-`.
+#'  \item `cdTab`:
+#'    Code(s) of the meta-infomation items to select. The format can be a character vector (`c("001", "002")`) or
+#'    a chraracter of values and commas (`"001,002"`).
+#'  \item `cdTabFrom`:
 #'    The code of the first meta-information item to select.
-#'  \item \code{cdTabTo}:
+#'  \item `cdTabTo`:
 #'    The code of the last meta-information item to select.
-#'  \item \code{lvTime}:
-#'     Level of the time to select. The format is the same as \code{lvTab}
-#'  \item \code{cdTime}
-#'     Time(s) to select. The format is the same way like \code{cdTab}
-#'  \item \code{cdTimeFrom}:
-#'    The first time to select. The format is the same way like \code{cdTabFrom}
-#'  \item \code{cdTimeTo}:
-#'    The last time to select. The format is the same way like \code{cdTabTo}
-#'  \item \code{lvArea}:
-#'     Level of the area to select. The format is the same as \code{lvTab}
-#'  \item \code{cdArea}
-#'     Code(s) of the Area to select. The format is the same way like \code{cdTab}
-#'  \item \code{cdAreaFrom}:
-#'    The code of the first area to select. The format is the same way like \code{cdTabFrom}
-#'  \item \code{cdAreaTo}:
-#'    The code of the last area to select. The format is the same way like \code{cdTabTo}
-#'  \item \code{lvCat01}, \code{cdCat01}, \code{cdCat01From}, \code{cdCat01To}, ...:
+#'  \item `lvTime`:
+#'     Level of the time to select. The format is the same as `lvTab`
+#'  \item `cdTime`
+#'     Time(s) to select. The format is the same way like `cdTab`
+#'  \item `cdTimeFrom`:
+#'    The first time to select. The format is the same way like `cdTabFrom`
+#'  \item `cdTimeTo`:
+#'    The last time to select. The format is the same way like `cdTabTo`
+#'  \item `lvArea`:
+#'     Level of the area to select. The format is the same as `lvTab`
+#'  \item `cdArea`
+#'     Code(s) of the Area to select. The format is the same way like `cdTab`
+#'  \item `cdAreaFrom`:
+#'    The code of the first area to select. The format is the same way like `cdTabFrom`
+#'  \item `cdAreaTo`:
+#'    The code of the last area to select. The format is the same way like `cdTabTo`
+#'  \item `lvCat01`, `cdCat01`, `cdCat01From`, `cdCat01To`, ...:
 #'    The same way like above.
 #' }
+#'
+#' @seealso
+#' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_3>
+#' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_4>
 #'
 #' @examples
 #' \dontrun{

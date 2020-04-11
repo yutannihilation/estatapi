@@ -15,59 +15,53 @@ estat_getStatsData(
 )
 }
 \arguments{
-\item{appId}{application ID}
+\item{appId}{Application ID.}
 
-\item{statsDataId}{ID of the statistical dataset}
+\item{statsDataId}{ID of the statistical dataset.}
 
-\item{startPosition}{Integer. The the first record to get.}
+\item{startPosition}{Index of the first record to get.}
 
-\item{limit}{Integer. Max number of records to get.}
+\item{limit}{Max number of records to get.}
 
-\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
+\item{lang}{Language of the data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
-\item{.fetch_all}{Whether to fetch all records when the number of records
-is larger than 100,000.}
+\item{.fetch_all}{Whether to fetch all records when the number of records is larger than
+100,000.}
 
-\item{...}{Other parameters like \code{lvCat01} and \code{cdCat01}.
-See \code{Other parameters} section for more details.}
+\item{...}{Other parameters.
+\itemize{
+\item \code{lvTab}:
+Level of the meta-information. The format can be \code{X} or \code{X-Y}, \code{-X} and \verb{X-}.
+\item \code{cdTab}:
+Code(s) of the meta-infomation items to select. The format can be a character vector (\code{c("001", "002")}) or
+a chraracter of values and commas (\code{"001,002"}).
+\item \code{cdTabFrom}:
+The code of the first meta-information item to select.
+\item \code{cdTabTo}:
+The code of the last meta-information item to select.
+\item \code{lvTime}:
+Level of the time to select. The format is the same as \code{lvTab}
+\item \code{cdTime}
+Time(s) to select. The format is the same way like \code{cdTab}
+\item \code{cdTimeFrom}:
+The first time to select. The format is the same way like \code{cdTabFrom}
+\item \code{cdTimeTo}:
+The last time to select. The format is the same way like \code{cdTabTo}
+\item \code{lvArea}:
+Level of the area to select. The format is the same as \code{lvTab}
+\item \code{cdArea}
+Code(s) of the Area to select. The format is the same way like \code{cdTab}
+\item \code{cdAreaFrom}:
+The code of the first area to select. The format is the same way like \code{cdTabFrom}
+\item \code{cdAreaTo}:
+The code of the last area to select. The format is the same way like \code{cdTabTo}
+\item \code{lvCat01}, \code{cdCat01}, \code{cdCat01From}, \code{cdCat01To}, ...:
+The same way like above.
+}}
 }
 \description{
 Get some statistical data via e-Stat API.
 }
-\section{Other parameters}{
-
-For every detailed information, please visit the URL in See Also.
-\itemize{
- \item \code{lvTab}:
-   Level of the meta-information. The format can be \code{X} or \code{X-Y}, \code{-X} and \code{X-}.
- \item \code{cdTab}:
-   Code(s) of the meta-infomation items to select. The format can be a character vector (\code{c("001", "002")}) or
-   a chraracter of values and commas (\code{"001,002"}).
- \item \code{cdTabFrom}:
-   The code of the first meta-information item to select.
- \item \code{cdTabTo}:
-   The code of the last meta-information item to select.
- \item \code{lvTime}:
-    Level of the time to select. The format is the same as \code{lvTab}
- \item \code{cdTime}
-    Time(s) to select. The format is the same way like \code{cdTab}
- \item \code{cdTimeFrom}:
-   The first time to select. The format is the same way like \code{cdTabFrom}
- \item \code{cdTimeTo}:
-   The last time to select. The format is the same way like \code{cdTabTo}
- \item \code{lvArea}:
-    Level of the area to select. The format is the same as \code{lvTab}
- \item \code{cdArea}
-    Code(s) of the Area to select. The format is the same way like \code{cdTab}
- \item \code{cdAreaFrom}:
-   The code of the first area to select. The format is the same way like \code{cdTabFrom}
- \item \code{cdAreaTo}:
-   The code of the last area to select. The format is the same way like \code{cdTabTo}
- \item \code{lvCat01}, \code{cdCat01}, \code{cdCat01From}, \code{cdCat01To}, ...:
-   The same way like above.
-}
-}
-
 \examples{
 \dontrun{
 # fetch all data, which may take time
@@ -100,6 +94,6 @@ estat_getStatsData(
 
 }
 \seealso{
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_3}
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_4}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_3}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_4}
 }

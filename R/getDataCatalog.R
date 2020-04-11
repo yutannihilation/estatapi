@@ -2,30 +2,49 @@
 #'
 #' Get information about the statistical dataset files and databases via e-Stat API.
 #'
-#' @param appId Application ID
-#' @param lang Language of data. \code{"J"}(Japanese) or \code{"E"}(English).
-#' @param .use_label Whether to take the human-redable label value or the code value when flattening a field containing both.
-#'        (default: \code{TRUE})
-#' @param surveyYears Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}
-#' @param openYears Year and month when the survey result was opened. The format is the same as \code{surveyYears}
-#' @param statsField Field of statistics. The format is either two digits (large classification) or
-#'    four digits (small classification). For the detail of the classification, see
-#'    \url{http://www.soumu.go.jp/toukei_toukatsu/index/seido/sangyo/26index.htm}
-#' @param statsCode Code assigned for each statistical agency and statistics. The format can be
-#'     five digits (agency), and eight digits (statistics). For the detail, see
-#'     \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.
-#' @param searchWord Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).
-#' @param dataType Type of data. \code{XLS}: Excel file, \code{CSV}: CSV file, \code{PDF}: PDF file, \code{DB}: Database.
-#' @param catalogId Catalog ID.
-#' @param resourceId Catalog resource ID.
-#' @param startPosition Integer. The the first record to get.
-#' @param limit Integer. Max number of records to get.
-#' @param updatedDate Last updated date. The format is either \code{YYYY}, \code{YYYYMM}, \code{YYYYMMDD} or \code{YYYYMMDD-YYYYMMDD}
-#' @param ... Other parameters.
+#' @param appId
+#'   Application ID.
+#' @param lang
+#'   Language of data. `"J"`(Japanese) or `"E"`(English).
+#' @param .use_label
+#'   Whether to take the human-redable label value or the code value when
+#'   flattening a field containing both (default: `TRUE`).
+#' @param surveyYears
+#'   Year and month when the survey was conducted. The format is either
+#'   `"YYYY"`, `"YYYYMM"`, or `"YYYYMM-YYYYMM"`.
+#' @param openYears
+#'   Year and month when the survey result was opened. The format is the
+#'   same as `surveyYears`.
+#' @param statsField
+#'   Field of statistics. The format is either two digits(large classification)
+#'   or four digits (small classification). For the detail of the
+#'   classification, see <http://www.soumu.go.jp/toukei_toukatsu/index/seido/sangyo/26index.htm>.
+#' @param statsCode
+#'   Code assigned for each statistical agency and statistics. The format can
+#'   be five digits (agency), and eight digits (statistics). For the detail,
+#'   see <http://www.stat.go.jp/info/guide/public/code/code.htm>.
+#' @param searchWord
+#'   Keyword for searching. You can use `OR` and `AND` to combine conditions
+#'   (e.g.: `"apple AND orrange"`).
+#' @param dataType
+#'   Type of data. `XLS`: Excel file, `CSV`: CSV file, `PDF`: PDF file, `DB`: Database.
+#' @param catalogId
+#'   Catalog ID.
+#' @param resourceId
+#'   Catalog resource ID.
+#' @param startPosition
+#'   Integer. The the first record to get.
+#' @param limit
+#'   Integer. Max number of records to get.
+#' @param updatedDate
+#'   Last updated date. The format is either `"YYYY"`, `"YYYYMM"`, or
+#'   `"YYYYMM-YYYYMM"`.
+#' @param ...
+#'   Other parameters.
 #'
 #' @seealso
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_6}
-#' \url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_7}
+#' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_6>
+#' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_7>
 #'
 #' @examples
 #' \dontrun{

@@ -21,3 +21,4 @@ RoxygenNote: 7.1.0
 Suggests:
     testthat
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)

@@ -23,7 +23,7 @@ estat_getStatsList(
 \arguments{
 \item{appId}{Application ID}
 
-\item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).}
+\item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \verb{apple AND orrange}).}
 
 \item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
