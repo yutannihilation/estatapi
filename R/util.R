@@ -59,10 +59,14 @@ as_flattened_character <- function(x, .use_label = TRUE) {
 #   2-2) if .use_label is FALSE ->  return the other value
 # 3) list without "$" element  ->  return x as it is (x will be flattened outside of this function)
 try_dollar <- function(x, .use_label = TRUE) {
-  if(! is.list(x)) return(x)
-  if(! "$" %in% names(x)) return(x)
+  if (!is.list(x)) {
+    return(x)
+  }
+  if (!"$" %in% names(x)) {
+    return(x)
+  }
 
-  if(.use_label) {
+  if (.use_label) {
     x[["$"]]
   } else {
     x[[which(names(x) != "$")]]
@@ -118,9 +122,10 @@ parse_result_csv <- function(res) {
   }
 
   readr::read_csv(result_text,
-                  skip = 1,
-                  col_types = readr::cols(
-                    value    = readr::col_number(),
-                    .default = readr::col_character()
-                  ))
+    skip = 1,
+    col_types = readr::cols(
+      value = readr::col_number(),
+      .default = readr::col_character()
+    )
+  )
 }

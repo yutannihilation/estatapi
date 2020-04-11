@@ -48,17 +48,19 @@ estat_getStatsList <- function(appId, searchWord,
                                ...) {
   lang <- match.arg(lang)
 
-  j <- estat_api("rest/3.0/app/json/getStatsList", appId = appId, searchWord = searchWord,
-                 lang = lang,
-                 surveyYears = surveyYears,
-                 openYears = openYears,
-                 statsField = statsField,
-                 statsCode = statsCode,
-                 searchKind = searchKind,
-                 startPosition = startPosition,
-                 limit = limit,
-                 updatedDate = updatedDate,
-                 ...)
+  j <- estat_api("rest/3.0/app/json/getStatsList",
+    appId = appId, searchWord = searchWord,
+    lang = lang,
+    surveyYears = surveyYears,
+    openYears = openYears,
+    statsField = statsField,
+    statsCode = statsCode,
+    searchKind = searchKind,
+    startPosition = startPosition,
+    limit = limit,
+    updatedDate = updatedDate,
+    ...
+  )
 
   j$GET_STATS_LIST$DATALIST_INF$TABLE_INF %>%
     purrr::map(as_flattened_character, .use_label = .use_label) %>%

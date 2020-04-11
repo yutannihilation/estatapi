@@ -2,8 +2,10 @@ context("as_flattened_character")
 
 dataset_raw <- list(
   STAT_NAME = structure(
-    list(`@code` = "00200572",
-         `$` = "\u5168\u56fd\u7269\u4fa1\u7d71\u8a08\u8abf\u67fb"),
+    list(
+      `@code` = "00200572",
+      `$` = "\u5168\u56fd\u7269\u4fa1\u7d71\u8a08\u8abf\u67fb"
+    ),
     .Names = c("@code", "$")
   ),
   ORGANIZATION = structure(list(`@code` = "00200", `$` = "\u7dcf\u52d9\u7701"), .Names = c("@code", "$")),

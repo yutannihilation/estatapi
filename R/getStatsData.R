@@ -75,7 +75,6 @@
 #'   statsDataId = "0003065345",
 #'   cdCat01 = c("008", "009", "010")
 #' )
-#'
 #' }
 #'
 #' @export
@@ -97,17 +96,20 @@ estat_getStatsData <- function(appId, statsDataId,
     cur_limit <- ranges$limits[i]
     cur_start <- ranges$starts[i]
 
-    message(sprintf("Fetching record %.0f-%.0f... (total: %.0f records)\n",
-                    cur_start, cur_start + cur_limit - 1, total_record_count))
+    message(sprintf(
+      "Fetching record %.0f-%.0f... (total: %.0f records)\n",
+      cur_start, cur_start + cur_limit - 1, total_record_count
+    ))
 
     j <- estat_api("rest/2.1/app/json/getStatsData",
-                             appId = appId,
-                             statsDataId = statsDataId,
-                             startPosition = format(cur_start, scientific = FALSE),
-                             limit = format(cur_limit, scientific = FALSE),
-                             lang = lang,
-                             metaGetFlg = "N",
-                             ...)
+      appId = appId,
+      statsDataId = statsDataId,
+      startPosition = format(cur_start, scientific = FALSE),
+      limit = format(cur_limit, scientific = FALSE),
+      lang = lang,
+      metaGetFlg = "N",
+      ...
+    )
 
     value_df <- j$GET_STATS_DATA$STATISTICAL_DATA$DATA_INF$VALUE %>%
       dplyr::bind_rows()
@@ -125,8 +127,10 @@ estat_getStatsData <- function(appId, statsDataId,
 
   for (meta in purrr::transpose(meta_info$.names)) {
     meta_df <- meta_info[[meta$id]]
-    meta_vec <- purrr::set_names(x  = meta_df[["@name"]],
-                                 nm = meta_df[["@code"]])
+    meta_vec <- purrr::set_names(
+      x = meta_df[["@name"]],
+      nm = meta_df[["@code"]]
+    )
     result_df[, meta$name] <- meta_vec[result_df[[paste0(meta$id, "_code")]]]
   }
 
@@ -138,8 +142,8 @@ estat_getStatsData <- function(appId, statsDataId,
 
   suppressWarnings({
     sorted_colnames <- unlist(purrr::transpose(
-        list(colnames_orig, colnames_meta)
-      ))
+      list(colnames_orig, colnames_meta)
+    ))
   })
   result_df[, sorted_colnames]
 }
@@ -147,11 +151,12 @@ estat_getStatsData <- function(appId, statsDataId,
 
 estat_getStatsDataCount <- function(appId, statsDataId, ...) {
   j <- estat_api("rest/2.1/app/json/getStatsData",
-                 appId = appId,
-                 statsDataId = statsDataId,
-                 metaGetFlg = "N",
-                 cntGetFlg = "Y",
-                 ...)
+    appId = appId,
+    statsDataId = statsDataId,
+    metaGetFlg = "N",
+    cntGetFlg = "Y",
+    ...
+  )
 
   as.numeric(j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$TOTAL_NUMBER)
 }
