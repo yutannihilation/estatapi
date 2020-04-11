@@ -21,7 +21,7 @@ estat_getStatsList(
 )
 }
 \arguments{
-\item{appId}{Application ID}
+\item{appId}{Application ID.}
 
 \item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \verb{apple AND orrange}).}
 
@@ -65,6 +65,6 @@ estat_getStatsList(
 }
 }
 \seealso{
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_1}
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_2}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_1}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_2}
 }

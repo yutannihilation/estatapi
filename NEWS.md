@@ -1,3 +1,9 @@
+# estatapi 0.4.0
+
+## Major Changes
+
+* Use e-Stat API version 3.0.
+
 # estatapi 0.3.0
 
 ## Major Changes

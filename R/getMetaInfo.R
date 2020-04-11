@@ -8,8 +8,8 @@
 #' @param ... Other parameters.
 #'
 #' @seealso
-#' <http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_2>
-#' <http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_3>
+#' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_2>
+#' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_3>
 #'
 #' @examples
 #' \dontrun{
