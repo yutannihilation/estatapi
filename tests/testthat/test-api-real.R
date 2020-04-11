@@ -10,13 +10,13 @@ EXPECTED_NAMES <- c(
   "area_code", "\u5730\u57df\u533a\u5206",
   "time_code", "\u6642\u9593\u8ef8\uff08\u6708\u6b21\uff09",
   "unit",
-  "value"
+  "value",
+  "annotation"
 )
 
 STATS_DATA_ID <- "0003103532"
 
 CD_CAT01_SMALL <- c("010800130", "010800140")
-EXPECTED_COUNT_SMALL <- 13184
 
 CD_CAT01_LARGE <- c(
   "000100000", "000200000", "000300000", "000400000", "000500000",
@@ -24,7 +24,6 @@ CD_CAT01_LARGE <- c(
   "001100000", "010000000", "010100000", "010110001", "010120000",
   "010120010", "010120020"
 )
-EXPECTED_COUNT_LARGE <- 110864
 
 
 # Util Functions ----------------------------------------
@@ -40,15 +39,19 @@ wrap_api_func <- function(fun, ...) {
   purrr::partial(fun, appId = appId)
 }
 
-check_df <- function(d, expected_count, expected_names = EXPECTED_NAMES) {
+check_df <- function(d, expected_names = EXPECTED_NAMES, expected_count = NULL) {
   # Confirm there are no duplicated rows
   expect_equal(nrow(d), nrow(dplyr::distinct(d)))
 
-  # Confirm the number of rows is the same as expected
-  expect_equal(nrow(d), expected_count)
-
   # Confirm the column names are the same as expected
   expect_equal(names(d), expected_names)
+
+  if (!is.null(expected_count)) {
+    # Confirm the number of rows is the same as expected
+    expect_equal(nrow(d), expected_count)
+  } else {
+    expect_true(nrow(d) > 0)
+  }
 }
 
 
@@ -61,7 +64,7 @@ test_that("estat_getStatsData with <100000 records works fine", {
     cdCat01 = CD_CAT01_SMALL
   )
 
-  check_df(d, EXPECTED_COUNT_SMALL)
+  check_df(d)
 })
 
 test_that("estat_getStatsData with <100000 records and limit works fine", {
@@ -72,7 +75,7 @@ test_that("estat_getStatsData with <100000 records and limit works fine", {
     limit = 10
   )
 
-  check_df(d, 10)
+  check_df(d, expected_count = 10)
 })
 
 test_that("estat_getStatsData with <100000 records and limit works fine", {
@@ -83,7 +86,7 @@ test_that("estat_getStatsData with <100000 records and limit works fine", {
     limit = 10
   )
 
-  check_df(d, 10)
+  check_df(d, expected_count = 10)
 })
 
 
@@ -95,7 +98,8 @@ test_that("estat_getStatsData with <100000 records and startPosition works fine"
     startPosition = 10001
   )
 
-  check_df(d, EXPECTED_COUNT_SMALL - 10001 + 1)
+  total_number <- wrap_api_func(estat_getStatsDataCount)(statsDataId = STATS_DATA_ID, cdCat01 = CD_CAT01_SMALL)
+  check_df(d, expected_count = total_number - 10001 + 1)
 })
 
 test_that("estat_getStatsData with <100000 records and startPosition and limit works fine", {
@@ -107,7 +111,7 @@ test_that("estat_getStatsData with <100000 records and startPosition and limit w
     limit = 10
   )
 
-  check_df(d, 10)
+  check_df(d, expected_count = 10)
 })
 
 
@@ -120,7 +124,7 @@ test_that("estat_getStatsData with >100000 records works fine", {
     cdCat01 = CD_CAT01_LARGE
   )
 
-  check_df(d, EXPECTED_COUNT_LARGE)
+  check_df(d)
 })
 
 test_that("estat_getStatsData with >100000 records and limit >100000 works fine", {
@@ -131,7 +135,7 @@ test_that("estat_getStatsData with >100000 records and limit >100000 works fine"
     limit = 110000
   )
 
-  check_df(d, 110000)
+  check_df(d, expected_count = 110000)
 })
 
 test_that("estat_getStatsData with >100000 records and limit <100000 works fine", {
@@ -142,7 +146,7 @@ test_that("estat_getStatsData with >100000 records and limit <100000 works fine"
     limit = 90000
   )
 
-  check_df(d, 90000)
+  check_df(d, expected_count = 90000)
 })
 
 test_that("estat_getStatsData with >100000 records and startPosition works fine", {
@@ -153,7 +157,8 @@ test_that("estat_getStatsData with >100000 records and startPosition works fine"
     startPosition = 10001
   )
 
-  check_df(d, EXPECTED_COUNT_LARGE - 10001 + 1)
+  total_number <- wrap_api_func(estat_getStatsDataCount)(statsDataId = STATS_DATA_ID, cdCat01 = CD_CAT01_LARGE)
+  check_df(d, expected_count = total_number - 10001 + 1)
 })
 
 test_that("estat_getStatsData with >100000 records and startPosition and limit >1000000 works fine", {
@@ -165,7 +170,7 @@ test_that("estat_getStatsData with >100000 records and startPosition and limit >
     limit = 100800
   )
 
-  check_df(d, 100800)
+  check_df(d, expected_count = 100800)
 })
 
 test_that("estat_getStatsData with >100000 records and startPosition and limit <1000000 works fine", {
@@ -177,7 +182,7 @@ test_that("estat_getStatsData with >100000 records and startPosition and limit <
     limit = 90000
   )
 
-  check_df(d, 90000)
+  check_df(d, expected_count = 90000)
 })
 
 
@@ -193,12 +198,15 @@ test_that("estat_getStatsData with <100000 records in English works fine", {
     lang = "E"
   )
 
-  check_df(d, 578, c(
-    "tab_code", "Tabulated variable",
-    "cat01_code", "Items",
-    "area_code", "AREA",
-    "time_code", "Time",
-    "unit",
-    "value"
-  ))
+  check_df(d,
+    expected_names = c(
+      "tab_code", "Tabulated variable",
+      "cat01_code", "Items",
+      "area_code", "AREA",
+      "time_code", "Time",
+      "unit",
+      "value",
+      "annotation"
+    )
+  )
 })

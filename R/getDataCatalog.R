@@ -106,8 +106,8 @@ denormalize_data_catalog_inf <- function(inf, .use_label = TRUE) {
   RESOURCE <- inf$RESOURCES$RESOURCE
 
   dataset_inf <- purrr::discard(DATASET, names(DATASET) %in% special_columns)
-  dataset_inf <- as_flattened_character(.use_label = .use_label)
-  dataset_inf <- purrr::update_list(
+  dataset_inf <- as_flattened_character(dataset_inf, .use_label = .use_label)
+  dataset_inf <- purrr::update_list(dataset_inf,
     `DATASET_@id` = inf$`@id`,
     DATASET_DESCRIPTION = DATASET$DESCRIPTION,
     DATASET_LAST_MODIFIED_DATE = DATASET$LAST_MODIFIED_DATE,
@@ -120,10 +120,10 @@ denormalize_data_catalog_inf <- function(inf, .use_label = TRUE) {
   # RESOURCE may be a list or a list of lists
   if (is.character(RESOURCE[[1]])) {
     resources_inf <- as_flattened_character(RESOURCE, .use_label = .use_label)
-    resources_inf <- tibble::as_tibble(resources_inf)
+    resources_inf <- dplyr::bind_rows(resources_inf)
   } else {
-    resources_inf <- purrr::map(resources_inf, as_flattened_character, .use_label = .use_label)
-    resources_inf <- tibble::as_tibble(resources_inf)
+    resources_inf <- purrr::map(RESOURCE, as_flattened_character, .use_label = .use_label)
+    resources_inf <- dplyr::bind_rows(resources_inf)
   }
 
   purrr::invoke(dplyr::mutate, .data = resources_inf, dataset_inf)

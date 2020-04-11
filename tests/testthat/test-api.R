@@ -76,19 +76,23 @@ test_that("estat_getStatsData processes the API response as expected", {
     `estatapi:::estat_getStatsDataCount` = function(...) 40014,
     `estatapi::estat_getMetaInfo` = function(...) readRDS("result_getMetaInfo.rds"),
     `httr::GET` = function(...) {
-      purrr::update_list(dummy_res,
+      res <- purrr::update_list(dummy_res,
         content = readRDS("content_getStatsData.rds")
       )
+      res$headers$`content-type` <- "text/plain; charset=utf-8"
+      res
     },
-    expect_identical(
-      estat_getStatsData(
-        appId = "XXXX",
-        statsDataId = "0003065345",
-        cdCat01 = c("008", "009", "010"),
-        limit = 3
-      ),
-      readRDS("result_getStatsData.rds")
-    )
+    {
+      expect_identical(
+        estat_getStatsData(
+          appId = "XXXX",
+          statsDataId = "0003065345",
+          cdCat01 = c("008", "009", "010"),
+          limit = 3
+        ),
+        readRDS("result_getStatsData.rds")
+      )
+    }
   )
 })
 
