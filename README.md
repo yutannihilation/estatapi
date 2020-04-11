@@ -154,9 +154,9 @@ estat_getStatsData(
   cdCat01 = c("010800130","010800140")
 )
 #> Fetching record 1-17792... (total: 17792 records)
-#> # A tibble: 17,792 x 12
+#> # A tibble: 17,792 x 13
 #>    tab_code 表章項目 cat01_code `品目分類（27年改定）`… cat02_code 世帯区分 area_code
-#>    <chr>    <chr>    <chr>      <chr>            <chr>      <chr>    <chr>    
+#>  * <chr>    <chr>    <chr>      <chr>            <chr>      <chr>    <chr>    
 #>  1 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #>  2 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #>  3 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
@@ -167,8 +167,9 @@ estat_getStatsData(
 #>  8 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #>  9 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #> 10 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
-#> # … with 17,782 more rows, and 5 more variables: 地域区分 <chr>,
-#> #   time_code <chr>, `時間軸（月次）` <chr>, unit <chr>, value <dbl>
+#> # … with 17,782 more rows, and 6 more variables: 地域区分 <chr>,
+#> #   time_code <chr>, `時間軸（月次）` <chr>, unit <chr>, value <dbl>,
+#> #   annotation <chr>
 ```
 
 `limit`で取得する最大のレコード数を、`startPosition`で取得を始めるレコードの位置を指定することもできます。とりあえず少しだけ抜き出して見たい場合や、少しずつデータを取ってきたい場合にはこれらのパラメータが便利です。
@@ -179,14 +180,14 @@ estat_getStatsData(
   limit = 3
 )
 #> Fetching record 1-3... (total: 17792 records)
-#> # A tibble: 3 x 12
+#> # A tibble: 3 x 13
 #>   tab_code 表章項目 cat01_code `品目分類（27年改定）`… cat02_code 世帯区分 area_code
-#>   <chr>    <chr>    <chr>      <chr>            <chr>      <chr>    <chr>    
+#> * <chr>    <chr>    <chr>      <chr>            <chr>      <chr>    <chr>    
 #> 1 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #> 2 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #> 3 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
-#> # … with 5 more variables: 地域区分 <chr>, time_code <chr>,
-#> #   `時間軸（月次）` <chr>, unit <chr>, value <dbl>
+#> # … with 6 more variables: 地域区分 <chr>, time_code <chr>,
+#> #   `時間軸（月次）` <chr>, unit <chr>, value <dbl>, annotation <chr>
 
 estat_getStatsData(
   appId = appId, statsDataId = "0003103532", cdCat01 = c("010800130","010800140"),
@@ -194,14 +195,14 @@ estat_getStatsData(
   limit = 3
 )
 #> Fetching record 101-103... (total: 17792 records)
-#> # A tibble: 3 x 12
+#> # A tibble: 3 x 13
 #>   tab_code 表章項目 cat01_code `品目分類（27年改定）`… cat02_code 世帯区分 area_code
-#>   <chr>    <chr>    <chr>      <chr>            <chr>      <chr>    <chr>    
+#> * <chr>    <chr>    <chr>      <chr>            <chr>      <chr>    <chr>    
 #> 1 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #> 2 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
 #> 3 01       金額     010800130  352 チョコレート 03         二人以上の世帯… 00000    
-#> # … with 5 more variables: 地域区分 <chr>, time_code <chr>,
-#> #   `時間軸（月次）` <chr>, unit <chr>, value <dbl>
+#> # … with 6 more variables: 地域区分 <chr>, time_code <chr>,
+#> #   `時間軸（月次）` <chr>, unit <chr>, value <dbl>, annotation <chr>
 ```
 
 ### データカタログ情報取得（`estat_getDataCatalog()`）

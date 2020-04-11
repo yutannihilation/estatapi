@@ -128,9 +128,9 @@ estat_getStatsData(
   cdCat01 = c("0005","1021")
 )
 #> Fetching record 1-8228... (total: 8228 records)
-#> # A tibble: 8,228 x 10
+#> # A tibble: 8,228 x 11
 #>    tab_code `Tabulated vari… cat01_code Items area_code AREA  time_code Time 
-#>    <chr>    <chr>            <chr>      <chr> <chr>     <chr> <chr>     <chr>
+#>  * <chr>    <chr>            <chr>      <chr> <chr>     <chr> <chr>     <chr>
 #>  1 1        Index            0005       Bread 13A01     Ku-a… 20160012… Dec.…
 #>  2 1        Index            0005       Bread 13A01     Ku-a… 20160011… Nov.…
 #>  3 1        Index            0005       Bread 13A01     Ku-a… 20160010… Oct.…
@@ -141,7 +141,8 @@ estat_getStatsData(
 #>  8 1        Index            0005       Bread 13A01     Ku-a… 20160005… May …
 #>  9 1        Index            0005       Bread 13A01     Ku-a… 20160004… Apr.…
 #> 10 1        Index            0005       Bread 13A01     Ku-a… 20160003… Mar.…
-#> # … with 8,218 more rows, and 2 more variables: value <dbl>, unit <chr>
+#> # … with 8,218 more rows, and 3 more variables: unit <chr>, value <dbl>,
+#> #   annotation <chr>
 ```
 
 You may feel convenient with `limit` and `startPosition` to get data
