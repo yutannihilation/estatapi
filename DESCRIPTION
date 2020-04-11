@@ -2,7 +2,6 @@ Package: estatapi
 Type: Package
 Title: R Interface to e-Stat API
 Version: 0.3.0.9000
-Date: 2016-08-16
 Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c("aut", "cre"))
 Description: Provides an interface to e-Stat API, the one-stop service for official statistics of the Japanese government.
 URL: https://github.com/yutannihilation/estatapi
@@ -16,7 +15,8 @@ Imports:
     purrr (>= 0.2),
     readr (>= 0.2),
     dplyr (>= 0.5.0),
-    tibble
+    tibble,
+    rlang
 RoxygenNote: 7.1.0
 Suggests:
     testthat

@@ -90,9 +90,10 @@ estat_getDataCatalog <- function(appId,
     ...
   )
 
-  j$GET_DATA_CATALOG$DATA_CATALOG_LIST_INF$DATA_CATALOG_INF %>%
-    purrr::map(denormalize_data_catalog_inf, .use_label = .use_label) %>%
-    dplyr::bind_rows()
+  data_catalog_inf <- j$GET_DATA_CATALOG$DATA_CATALOG_LIST_INF$DATA_CATALOG_INF
+  data_catalog_inf <- purrr::map(data_catalog_inf, denormalize_data_catalog_inf, .use_label = .use_label)
+
+  dplyr::bind_rows(data_catalog_inf)
 }
 
 denormalize_data_catalog_inf <- function(inf, .use_label = TRUE) {
@@ -104,30 +105,25 @@ denormalize_data_catalog_inf <- function(inf, .use_label = TRUE) {
   DATASET <- inf$DATASET
   RESOURCE <- inf$RESOURCES$RESOURCE
 
-  dataset_inf <- purrr::discard(
-    DATASET,
-    names(DATASET) %in% special_columns
-  ) %>%
-    as_flattened_character(.use_label = .use_label) %>%
-    purrr::update_list(
-      `DATASET_@id` = inf$`@id`,
-      DATASET_DESCRIPTION = DATASET$DESCRIPTION,
-      DATASET_LAST_MODIFIED_DATE = DATASET$LAST_MODIFIED_DATE,
-      DATASET_RELEASE_DATE = DATASET$RELEASE_DATE
-    )
+  dataset_inf <- purrr::discard(DATASET, names(DATASET) %in% special_columns)
+  dataset_inf <- as_flattened_character(.use_label = .use_label)
+  dataset_inf <- purrr::update_list(
+    `DATASET_@id` = inf$`@id`,
+    DATASET_DESCRIPTION = DATASET$DESCRIPTION,
+    DATASET_LAST_MODIFIED_DATE = DATASET$LAST_MODIFIED_DATE,
+    DATASET_RELEASE_DATE = DATASET$RELEASE_DATE
+  )
 
   # inf$DATASET$TITLE$NAME conflicts with inf$RESOURCES$RESOURCE[[x]]$TITLE$NAME
   names(dataset_inf) <- replace(names(dataset_inf), names(dataset_inf) == "NAME", "DATASET_NAME")
 
   # RESOURCE may be a list or a list of lists
-  resources_inf <- if (is.character(RESOURCE[[1]])) {
-    RESOURCE %>%
-      as_flattened_character(.use_label = .use_label) %>%
-      tibble::as_tibble()
+  if (is.character(RESOURCE[[1]])) {
+    resources_inf <- as_flattened_character(RESOURCE, .use_label = .use_label)
+    resources_inf <- tibble::as_tibble(resources_inf)
   } else {
-    RESOURCE %>%
-      purrr::map(as_flattened_character, .use_label = .use_label) %>%
-      dplyr::bind_rows()
+    resources_inf <- purrr::map(resources_inf, as_flattened_character, .use_label = .use_label)
+    resources_inf <- tibble::as_tibble(resources_inf)
   }
 
   purrr::invoke(dplyr::mutate, .data = resources_inf, dataset_inf)

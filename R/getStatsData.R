@@ -90,9 +90,8 @@ estat_getStatsData <- function(appId, statsDataId,
                                ...) {
   lang <- match.arg(lang)
 
-  meta_info <- estat_getMetaInfo(appId, statsDataId, lang = lang)
-  total_record_count <- estat_getStatsDataCount(appId, statsDataId, lang = lang, ...)
-  ranges <- calc_ranges(startPosition, limit, total_record_count, .fetch_all)
+  total_number <- estat_getStatsDataCount(appId, statsDataId, lang = lang, ...)
+  ranges <- calc_ranges(startPosition, limit, total_number, .fetch_all)
 
   result <- list()
 
@@ -102,59 +101,28 @@ estat_getStatsData <- function(appId, statsDataId,
 
     message(sprintf(
       "Fetching record %.0f-%.0f... (total: %.0f records)\n",
-      cur_start, cur_start + cur_limit - 1, total_record_count
+      cur_start, cur_start + cur_limit - 1, total_number
     ))
 
-    j <- estat_api("rest/2.1/app/json/getStatsData",
+    j <- estat_api("rest/3.0/app/getSimpleStatsData",
       appId = appId,
       statsDataId = statsDataId,
       startPosition = format(cur_start, scientific = FALSE),
       limit = format(cur_limit, scientific = FALSE),
       lang = lang,
       metaGetFlg = "N",
+      sectionHeaderFlg = "2", # No header
       ...
     )
 
-    value_df <- j$GET_STATS_DATA$STATISTICAL_DATA$DATA_INF$VALUE %>%
-      dplyr::bind_rows()
-
-    result[[i]] <- value_df
+    result[[i]] <- j
   }
 
-  result_df <- result %>%
-    dplyr::bind_rows() %>%
-    dplyr::mutate(`$` = suppressWarnings(readr::parse_number(`$`)))
-
-  colnames(result_df) <- colnames(result_df) %>%
-    purrr::map_chr(~ paste0(substring(., 2), "_code")) %>%
-    dplyr::recode("_code" = "value", "unit_code" = "unit")
-
-  for (meta in purrr::transpose(meta_info$.names)) {
-    meta_df <- meta_info[[meta$id]]
-    meta_vec <- purrr::set_names(
-      x = meta_df[["@name"]],
-      nm = meta_df[["@code"]]
-    )
-    result_df[, meta$name] <- meta_vec[result_df[[paste0(meta$id, "_code")]]]
-  }
-
-  # FIXME: This is a temporal workaround until getSimpleStatsData API is ready.
-  # reorder result as the same order as getSimpleStatsData
-  colnames_all <- colnames(result_df)
-  colnames_meta <- meta_info$.names$name
-  colnames_orig <- dplyr::setdiff(colnames_all, colnames_meta)
-
-  suppressWarnings({
-    sorted_colnames <- unlist(purrr::transpose(
-      list(colnames_orig, colnames_meta)
-    ))
-  })
-  result_df[, sorted_colnames]
+  dplyr::bind_rows(result)
 }
 
-
 estat_getStatsDataCount <- function(appId, statsDataId, ...) {
-  j <- estat_api("rest/2.1/app/json/getStatsData",
+  j <- estat_api("rest/3.0/app/json/getStatsData",
     appId = appId,
     statsDataId = statsDataId,
     metaGetFlg = "N",
@@ -164,7 +132,6 @@ estat_getStatsDataCount <- function(appId, statsDataId, ...) {
 
   as.numeric(j$GET_STATS_DATA$STATISTICAL_DATA$RESULT_INF$TOTAL_NUMBER)
 }
-
 
 calc_ranges <- function(startPosition,
                         limit,
@@ -197,22 +164,4 @@ calc_ranges <- function(startPosition,
   }
 
   tibble::tibble(!!!ranges)
-}
-
-# cdTab may be (1) NULL, (2) a vector of strings or (3) a string of numbers separated by ","
-get_tabs <- function(appId, statsDataId, cdTab) {
-  if (is.null(cdTab)) {
-    # when (1), try to get all tab from getMetaInfo API
-    meta_info <- estat_getMetaInfo(appId = appId, statsDataId = statsDataId)
-
-    # tab does not always exist.
-    if (!is.null(meta_info$tab)) {
-      meta_info$tab$`@code`
-    } else {
-      NULL
-    }
-  } else {
-    # when (2) or (3), split it by ","
-    unlist(strsplit(cdTab, ",", fixed = TRUE))
-  }
 }

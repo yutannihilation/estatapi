@@ -2,7 +2,7 @@
 #'
 #' @docType package
 #' @seealso <http://www.e-stat.go.jp/SG1/estat/eStatTopPortalE.do>
-#' @importFrom dplyr %>%
+#' @import rlang
 #' @name estatapi
 "_PACKAGE"
 

@@ -62,7 +62,8 @@ estat_getStatsList <- function(appId, searchWord,
     ...
   )
 
-  j$GET_STATS_LIST$DATALIST_INF$TABLE_INF %>%
-    purrr::map(as_flattened_character, .use_label = .use_label) %>%
-    dplyr::bind_rows()
+  table_inf <- j$GET_STATS_LIST$DATALIST_INF$TABLE_INF
+  table_inf <- purrr::map(table_inf, as_flattened_character, .use_label = .use_label)
+
+  dplyr::bind_rows(table_inf)
 }
