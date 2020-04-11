@@ -2,7 +2,12 @@ Package: estatapi
 Type: Package
 Title: R Interface to e-Stat API
 Version: 0.3.0.9000
-Authors@R: person("Hiroaki", "Yutani", email = "yutani.ini@gmail.com", role = c("aut", "cre"))
+Authors@R: 
+    person(given = "Hiroaki",
+           family = "Yutani",
+           role = c("aut", "cre"),
+           email = "yutani.ini@gmail.com",
+           comment = c(ORCID = "0000-0002-3385-7233"))
 Description: Provides an interface to e-Stat API, the one-stop service for official statistics of the Japanese government.
 URL: https://github.com/yutannihilation/estatapi
 BugReports: https://github.com/yutannihilation/estatapi/issues
