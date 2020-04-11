@@ -10,3 +10,5 @@
 ^README-.*\.png$
 ^docs$
 ^\.github$
+^_pkgdown\.yml$
+^pkgdown$
