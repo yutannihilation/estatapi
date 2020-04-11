@@ -9,3 +9,4 @@
 ^README(\.en)?\.Rmd$
 ^README-.*\.png$
 ^docs$
+^\.github$
