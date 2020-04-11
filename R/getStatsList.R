@@ -48,7 +48,7 @@ estat_getStatsList <- function(appId, searchWord,
                                ...) {
   lang <- match.arg(lang)
 
-  j <- estat_api("rest/2.0/app/json/getStatsList", appId = appId, searchWord = searchWord,
+  j <- estat_api("rest/3.0/app/json/getStatsList", appId = appId, searchWord = searchWord,
                  lang = lang,
                  surveyYears = surveyYears,
                  openYears = openYears,

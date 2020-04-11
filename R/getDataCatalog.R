@@ -54,7 +54,7 @@ estat_getDataCatalog <- function(appId,
                                  ...) {
   lang <- match.arg(lang)
 
-  j <- estat_api("rest/2.1/app/json/getDataCatalog", appId = appId,
+  j <- estat_api("rest/3.0/app/json/getDataCatalog", appId = appId,
                  lang = lang,
                  surveyYears = surveyYears,
                  openYears = openYears,
