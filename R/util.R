@@ -6,9 +6,12 @@ ESTAT_API_URL <- "http://api.e-stat.go.jp/"
 #'
 #' @description Get Statistical Something From e-Stat API
 #'
-#' @param path API endpoint
-#' @param appId application ID
-#' @param ... other parameters
+#' @param path
+#'   API endpoint.
+#' @param appId
+#'   Application ID.
+#' @param ...
+#'   Other parameters.
 #'
 #' @export
 estat_api <- function(path, appId, ...) {

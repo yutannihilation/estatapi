@@ -25,7 +25,7 @@ estat_getDataCatalog(
 \arguments{
 \item{appId}{Application ID.}
 
-\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
+\item{lang}{Language of the data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
 \item{.use_label}{Whether to take the human-redable label value or the code value when
 flattening a field containing both (default: \code{TRUE}).}
@@ -45,7 +45,7 @@ be five digits (agency), and eight digits (statistics). For the detail,
 see \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.}
 
 \item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND} to combine conditions
-(e.g.: \code{"apple AND orrange"}).}
+(e.g.: \code{"apple AND orange"}).}
 
 \item{dataType}{Type of data. \code{XLS}: Excel file, \code{CSV}: CSV file, \code{PDF}: PDF file, \code{DB}: Database.}
 
@@ -53,9 +53,9 @@ see \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.}
 
 \item{resourceId}{Catalog resource ID.}
 
-\item{startPosition}{Integer. The the first record to get.}
+\item{startPosition}{Index of the first record to get.}
 
-\item{limit}{Integer. Max number of records to get.}
+\item{limit}{Max number of records to get.}
 
 \item{updatedDate}{Last updated date. The format is either \code{"YYYY"}, \code{"YYYYMM"}, or
 \code{"YYYYMM-YYYYMM"}.}

@@ -2,10 +2,14 @@
 #'
 #' Get meta-information about the statistical dataset via e-Stat API.
 #'
-#' @param appId Application ID
-#' @param statsDataId ID of the statistical dataset
-#' @param lang Language of data. `"J"`(Japanese) or `"E"`(English).
-#' @param ... Other parameters.
+#' @param appId
+#'   Application ID.
+#' @param statsDataId
+#'   ID of the statistical dataset.
+#' @param lang
+#'   Language of data. `"J"`(Japanese) or `"E"`(English).
+#' @param ...
+#'   Other parameters.
 #'
 #' @seealso
 #' <http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_2>

@@ -7,9 +7,9 @@
 estat_getMetaInfo(appId, statsDataId, lang = c("J", "E"), ...)
 }
 \arguments{
-\item{appId}{Application ID}
+\item{appId}{Application ID.}
 
-\item{statsDataId}{ID of the statistical dataset}
+\item{statsDataId}{ID of the statistical dataset.}
 
 \item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
