@@ -7,11 +7,11 @@
 estat_api(path, appId, ...)
 }
 \arguments{
-\item{path}{API endpoint}
+\item{path}{API endpoint.}
 
-\item{appId}{application ID}
+\item{appId}{Application ID.}
 
-\item{...}{other parameters}
+\item{...}{Other parameters.}
 }
 \description{
 Get Statistical Something From e-Stat API

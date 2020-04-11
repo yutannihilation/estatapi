@@ -21,34 +21,38 @@ estat_getStatsList(
 )
 }
 \arguments{
-\item{appId}{Application ID}
+\item{appId}{Application ID.}
 
-\item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND}. (e.g.: \code{apple AND orrange}).}
+\item{searchWord}{Keyword for searching. You can use \code{OR} and \code{AND} to combine conditions
+(e.g.: \code{"apple AND orange"}).}
 
-\item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
+\item{lang}{Language of the data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
-\item{.use_label}{Whether to take the human-redable label value or the code value when flattening a field containing both.
-(default: \code{TRUE})}
+\item{.use_label}{Whether to take the human-redable label value or the code value when
+flattening a field containing both (default: \code{TRUE}).}
 
-\item{surveyYears}{Year and month when the survey was conducted. The format is either \code{YYYY}, \code{YYYYMM}, or \code{YYYYMM-YYYYMM}}
+\item{surveyYears}{Year and month when the survey was conducted. The format is either
+\code{"YYYY"}, \code{"YYYYMM"}, or \code{"YYYYMM-YYYYMM"}.}
 
-\item{openYears}{Year and month when the survey result was opened. The format is the same as \code{surveyYears}}
+\item{openYears}{Year and month when the survey result was opened. The format is the
+same as \code{surveyYears}.}
 
-\item{statsField}{Field of statistics. The format is either two digits (large classification) or
-four digits (small classification). For the detail of the classification, see
-\url{http://www.soumu.go.jp/toukei_toukatsu/index/seido/sangyo/26index.htm}}
+\item{statsField}{Field of statistics. The format is either two digits(large classification)
+or four digits (small classification). For the detail of the
+classification, see \url{http://www.soumu.go.jp/toukei_toukatsu/index/seido/sangyo/26index.htm}.}
 
-\item{statsCode}{Code assigned for each statistical agency and statistics. The format can be
-five digits (agency), and eight digits (statistics). For the detail, see
-\url{http://www.stat.go.jp/info/guide/public/code/code.htm}.}
+\item{statsCode}{Code assigned for each statistical agency and statistics. The format can
+be five digits (agency), and eight digits (statistics). For the detail,
+see \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.}
 
-\item{searchKind}{Type of statistics. \code{1}: summary, \code{2}: regional mesh, \code{3}: Sensus.}
+\item{searchKind}{Type of statistics. \code{1}: summary, \code{2}: regional mesh.}
 
-\item{startPosition}{Integer. The the first record to get.}
+\item{startPosition}{Index of the first record to get.}
 
-\item{limit}{Integer. Max number of records to get.}
+\item{limit}{Max number of records to get.}
 
-\item{updatedDate}{Last updated date. The format is either \code{YYYY}, \code{YYYYMM}, \code{YYYYMMDD}, \code{YYYYMMDD-YYYYMMDD}}
+\item{updatedDate}{Last updated date. The format is either \code{"YYYY"}, \code{"YYYYMM"}, or
+\code{"YYYYMM-YYYYMM"}.}
 
 \item{...}{Other parameters.}
 }
@@ -65,6 +69,6 @@ estat_getStatsList(
 }
 }
 \seealso{
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_1}
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_2}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_1}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_2}
 }

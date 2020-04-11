@@ -7,9 +7,9 @@
 estat_getMetaInfo(appId, statsDataId, lang = c("J", "E"), ...)
 }
 \arguments{
-\item{appId}{Application ID}
+\item{appId}{Application ID.}
 
-\item{statsDataId}{ID of the statistical dataset}
+\item{statsDataId}{ID of the statistical dataset.}
 
 \item{lang}{Language of data. \code{"J"}(Japanese) or \code{"E"}(English).}
 
@@ -25,6 +25,6 @@ estat_getMetaInfo(appId = "XXXX", statsDataId = "0003065345")
 
 }
 \seealso{
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_2_2}
-\url{http://www.e-stat.go.jp/api/e-stat-manual2-1/#api_3_3}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_2_2}
+\url{http://www.e-stat.go.jp/api/e-stat-manual3-0/#api_3_3}
 }
