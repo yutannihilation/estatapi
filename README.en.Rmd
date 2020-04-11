@@ -127,7 +127,7 @@ Note that this API returns only URL of the file or database and the data itself 
 You can download the file from the given URL, but it may be difficult to process the data by R.
 
 ```{r}
-catalog1 <- estat_getDataCatalog(appId = appId, lang = "E", searchWord = "population", dataType = c("PDF", "XLS"))
+catalog1 <- estat_getDataCatalog(appId = appId, lang = "E", searchWord = "beef", dataType = c("PDF", "XLS"))
 
 catalog1[1, c("@id", "STAT_NAME", "TABLE_NAME", "SURVEY_DATE", "TABLE_SUB_CATEGORY1", "DATASET_NAME", "NAME", "LANDING_PAGE", "URL", "FORMAT")] %>%
   glimpse
