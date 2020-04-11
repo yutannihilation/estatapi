@@ -14,7 +14,7 @@ BugReports: https://github.com/yutannihilation/estatapi/issues
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R (>= 3.2)
+    R (>= 3.3)
 Imports:
     httr,
     purrr (>= 0.2),
