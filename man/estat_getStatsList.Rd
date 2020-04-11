@@ -42,7 +42,7 @@ four digits (small classification). For the detail of the classification, see
 five digits (agency), and eight digits (statistics). For the detail, see
 \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.}
 
-\item{searchKind}{Type of statistics. \code{1}: summary, \code{2}: regional mesh, \code{3}: Sensus.}
+\item{searchKind}{Type of statistics. \code{1}: summary, \code{2}: regional mesh.}
 
 \item{startPosition}{Integer. The the first record to get.}
 

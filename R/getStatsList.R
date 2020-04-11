@@ -15,7 +15,7 @@
 #' @param statsCode Code assigned for each statistical agency and statistics. The format can be
 #'     five digits (agency), and eight digits (statistics). For the detail, see
 #'     <http://www.stat.go.jp/info/guide/public/code/code.htm>.
-#' @param searchKind Type of statistics. `1`: summary, `2`: regional mesh, `3`: Sensus.
+#' @param searchKind Type of statistics. `1`: summary, `2`: regional mesh.
 #' @param startPosition Integer. The the first record to get.
 #' @param limit Integer. Max number of records to get.
 #' @param updatedDate Last updated date. The format is either `YYYY`, `YYYYMM`, `YYYYMMDD`, `YYYYMMDD-YYYYMMDD`
