@@ -31,7 +31,7 @@ test_that("estat_getStatsList processes the API response as expected", {
     `httr::GET` = function(...) {
       purrr::update_list(dummy_res, content = readRDS("content_getStatsList.rds"))
     },
-    expect_identical(
+    expect_equivalent(
       estat_getStatsList(
         appId = "XXXX",
         searchWord = "CD",
@@ -47,7 +47,7 @@ test_that("estat_getStatsList (w/o label) processes the API response as expected
     `httr::GET` = function(...) {
       purrr::update_list(dummy_res, content = readRDS("content_getStatsList.rds"))
     },
-    expect_identical(
+    expect_equivalent(
       estat_getStatsList(
         appId = "XXXX",
         searchWord = "CD",
@@ -64,7 +64,7 @@ test_that("estat_getMetaInfo processes the API response as expected", {
     `httr::GET` = function(...) {
       purrr::update_list(dummy_res, content = readRDS("content_getMetaInfo.rds"))
     },
-    expect_identical(
+    expect_equivalent(
       estat_getMetaInfo(appId = "XXXX", statsDataId = "0003065345"),
       readRDS("result_getMetaInfo.rds")
     )
@@ -83,7 +83,7 @@ test_that("estat_getStatsData processes the API response as expected", {
       res
     },
     {
-      expect_identical(
+      expect_equivalent(
         estat_getStatsData(
           appId = "XXXX",
           statsDataId = "0003065345",
@@ -102,7 +102,7 @@ test_that("estat_getDataCatalog processes the API response as expected", {
     `httr::GET` = function(...) {
       purrr::update_list(dummy_res, content = readRDS("content_getDataCatalog.rds"))
     },
-    expect_identical(
+    expect_equivalent(
       estat_getDataCatalog(
         appId = "XXXX",
         searchWord = "\u30c1\u30e7\u30b3\u30ec\u30fc\u30c8",
@@ -119,7 +119,7 @@ test_that("estat_getDataCatalog (w/o label) processes the API response as expect
     `httr::GET` = function(...) {
       purrr::update_list(dummy_res, content = readRDS("content_getDataCatalog.rds"))
     },
-    expect_identical(
+    expect_equivalent(
       estat_getDataCatalog(
         appId = "XXXX",
         searchWord = "\u30c1\u30e7\u30b3\u30ec\u30fc\u30c8",
