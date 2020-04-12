@@ -30,6 +30,7 @@ CD_CAT01_LARGE <- c(
 
 wrap_api_func <- function(fun, ...) {
   skip_on_cran()
+  skip_on_ci()
 
   if (!"estatapi" %in% keyring::key_list()$service) {
     skip('appId is not available; Set the key by keyring::key_set("estatapi")')
