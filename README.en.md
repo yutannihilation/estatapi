@@ -7,7 +7,7 @@
 
 [![R build
 status](https://github.com/yutannihilation/estatapi/workflows/R-CMD-check/badge.svg)](https://github.com/yutannihilation/estatapi/actions)
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/estatapi)](https://CRAN.R-project.org/package=estatapi)
 <!-- badges: end -->
 
 ## e-Stat API

@@ -15,7 +15,7 @@ estatapi - 政府統計の総合窓口（e-Stat）のAPIを使うためのRパ�
 ==========================
 <!-- badges: start -->
 [![R build status](https://github.com/yutannihilation/estatapi/workflows/R-CMD-check/badge.svg)](https://github.com/yutannihilation/estatapi/actions)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/estatapi)](https://CRAN.R-project.org/package=estatapi)
 <!-- badges: end -->
 
 _English version of README is [here](https://github.com/yutannihilation/estatapi/blob/master/README.en.md)_

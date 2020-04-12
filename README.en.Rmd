@@ -15,7 +15,7 @@ e-Stat API for R
 ==========================
 <!-- badges: start -->
 [![R build status](https://github.com/yutannihilation/estatapi/workflows/R-CMD-check/badge.svg)](https://github.com/yutannihilation/estatapi/actions)
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/estatapi)](http://cran.r-project.org/package=estatapi)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/estatapi)](https://CRAN.R-project.org/package=estatapi)
 <!-- badges: end -->
 
 ## e-Stat API
