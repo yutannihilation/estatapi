@@ -24,6 +24,7 @@ Imports:
     rlang
 RoxygenNote: 7.1.0
 Suggests:
-    testthat
+    testthat,
+    keyring
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

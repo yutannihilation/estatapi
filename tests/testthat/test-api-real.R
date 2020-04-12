@@ -31,11 +31,11 @@ CD_CAT01_LARGE <- c(
 wrap_api_func <- function(fun, ...) {
   skip_on_cran()
 
-  if (!file.exists("../../.appId")) {
-    skip("appId is not available")
+  if (!"estatapi" %in% keyring::key_list()$service) {
+    skip('appId is not available; Set the key by keyring::key_set("estatapi")')
   }
 
-  appId <- readr::read_lines("../../.appId")
+  appId <- keyring::key_get("estatapi")
   purrr::partial(fun, appId = appId)
 }
 
