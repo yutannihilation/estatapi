@@ -12,6 +12,6 @@ Provides an interface to e-Stat API, the one-stop service for official statistic
 \url{http://www.e-stat.go.jp/SG1/estat/eStatTopPortalE.do}
 }
 \author{
-\strong{Maintainer}: Hiroaki Yutani \email{yutani.ini@gmail.com}
+\strong{Maintainer}: Hiroaki Yutani \email{yutani.ini@gmail.com} (\href{https://orcid.org/0000-0002-3385-7233}{ORCID})
 
 }

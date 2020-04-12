@@ -14,6 +14,7 @@ estat_getStatsList(
   statsField = NULL,
   statsCode = NULL,
   searchKind = NULL,
+  collectArea = NULL,
   startPosition = NULL,
   limit = NULL,
   updatedDate = NULL,
@@ -45,7 +46,23 @@ classification, see \url{http://www.soumu.go.jp/toukei_toukatsu/index/seido/sang
 be five digits (agency), and eight digits (statistics). For the detail,
 see \url{http://www.stat.go.jp/info/guide/public/code/code.htm}.}
 
-\item{searchKind}{Type of statistics. \code{1}: summary, \code{2}: regional mesh.}
+\item{searchKind}{Type of statistics.
+\itemize{
+\item \code{1}:
+summary
+\item \code{2}:
+regional mesh
+}}
+
+\item{collectArea}{Area of statistics.
+\itemize{
+\item \code{1}:
+country
+\item \code{2}:
+prefecture
+\item \code{3}:
+municipality
+}}
 
 \item{startPosition}{Index of the first record to get.}
 

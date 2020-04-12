@@ -24,7 +24,23 @@
 #'   be five digits (agency), and eight digits (statistics). For the detail,
 #'   see <http://www.stat.go.jp/info/guide/public/code/code.htm>.
 #' @param searchKind
-#'   Type of statistics. `1`: summary, `2`: regional mesh.
+#'   Type of statistics.
+#'   \itemize{
+#'     \item `1`:
+#'       summary
+#'     \item `2`:
+#'       regional mesh
+#'   }
+#' @param collectArea
+#'   Area of statistics.
+#'   \itemize{
+#'     \item `1`:
+#'       country
+#'     \item `2`:
+#'       prefecture
+#'     \item `3`:
+#'       municipality
+#'   }
 #' @param updatedDate
 #'   Last updated date. The format is either `"YYYY"`, `"YYYYMM"`, or
 #'   `"YYYYMM-YYYYMM"`.
@@ -51,6 +67,7 @@ estat_getStatsList <- function(appId, searchWord,
                                statsField = NULL,
                                statsCode = NULL,
                                searchKind = NULL,
+                               collectArea = NULL,
                                startPosition = NULL,
                                limit = NULL,
                                updatedDate = NULL,
@@ -65,6 +82,7 @@ estat_getStatsList <- function(appId, searchWord,
     statsField = statsField,
     statsCode = statsCode,
     searchKind = searchKind,
+    collectArea = collectArea,
     startPosition = startPosition,
     limit = limit,
     updatedDate = updatedDate,
