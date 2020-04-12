@@ -130,6 +130,7 @@
   <span class='kw'>statsField</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>statsCode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>searchKind</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>collectArea</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>startPosition</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>limit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>updatedDate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -181,7 +182,23 @@ see <a href='http://www.stat.go.jp/info/guide/public/code/code.htm'>http://www.s
     </tr>
     <tr>
       <th>searchKind</th>
-      <td><p>Type of statistics. <code>1</code>: summary, <code>2</code>: regional mesh.</p></td>
+      <td><p>Type of statistics.</p><ul>
+<li><p><code>1</code>:
+summary</p></li>
+<li><p><code>2</code>:
+regional mesh</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>collectArea</th>
+      <td><p>Area of statistics.</p><ul>
+<li><p><code>1</code>:
+country</p></li>
+<li><p><code>2</code>:
+prefecture</p></li>
+<li><p><code>3</code>:
+municipality</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>startPosition</th>
